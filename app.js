@@ -57,7 +57,7 @@ app.post('/user/setAccessToken', (req, res) => {
 app.post('/user/getName', (req, res) => {
     axios({
         method: "GET",
-        url: `https://graph.facebook.com/me?access_token=${req.body.activeToken}&fields=name`
+        url: `https://graph.facebook.com/me?access_token=${token}&fields=name`
       }).then((response) => {
           res.send(response);
     });
