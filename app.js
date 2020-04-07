@@ -63,8 +63,12 @@ app.post('/user/getName', (req, res) => {
     });
 });
 
+app.get('/ziv', (request, response) => {
+response.send("working!");
+});
+
 app.listen(PORT, () => {
     console.log('Now listening on port ' + PORT);
-})
+});
 
 module.exports.app = app;
