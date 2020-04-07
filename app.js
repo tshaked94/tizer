@@ -1,4 +1,5 @@
 const express = require('express')
+// const router = express.Router;
 // const authRoutes = require('./api/auth-routes');
 // const profileRoutes = require('./api/profile-routes');
 // const passportSetup = require('./engine/config/passport-setup');
@@ -28,13 +29,17 @@ app.set('view engine', 'ejs');
 
 //set up routes
 // app.use('/auth', authRoutes);
-// app.use('/profile', profileRoutes);
+// app.use('/user', profileRoutes);
 
 //create home route
 app.get('/', (req, res) => {
     res.send('hello');
     console.log('hello');
     // res.render('home');
+});
+
+app.get('/user/setAccessToken', (req, res) => {
+    res.send('access token recieved: ' + req.activeToken);
 });
 
 app.listen(PORT, () => {
