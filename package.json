@@ -4,10 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app"
   },
   "author": "Tomer Shaked and Sahar Hagbi",
   "license": "ISC",
+  "engines": {
+    "node": "13.10.1"
+  },
   "dependencies": {
     "cookie-session": "^1.4.0",
     "ejs": "^3.0.1",
