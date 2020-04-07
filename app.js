@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 
 app.post('/user/setAccessToken', (req, res) => {
     console.log('welcome to set access token');
-    res.send('access token recieved: ' + req.activeToken);
+    res.send('access token recieved: ' + req.body.activeToken);
 });
 
 app.listen(PORT, () => {
