@@ -60,7 +60,9 @@ app.post('/user/getName', (req, res) => {
 
     res.send('welcome to set access token');
     token = req.body.activeToken;
-    res.send('access token recieved: ' + token);
+    res.send('access token recieved');
+
+    res.send('this is the access token' + token)
 
     axios({
         method: "GET",
