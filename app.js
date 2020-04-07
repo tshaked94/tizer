@@ -11,6 +11,7 @@ const axios = require('axios'); // for third party http requests
 // const passport = require('passport');
 
 const app = express();
+var token;
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -49,12 +50,17 @@ app.get('/', (req, res) => {
 
 app.post('/user/setAccessToken', (req, res) => {
     console.log('welcome to set access token');
+    token = req.body.activeToken;
+    res.send('access token recieved: ' + token);
+});
+
+app.post('/user/getName', (req, res) => {
     axios({
         method: "GET",
         url: `https://graph.facebook.com/me?access_token=${req.body.activeToken}&fields=name`
       }).then((response) => {
           res.send(response);
-        });
+    });
 });
 
 app.listen(PORT, () => {
