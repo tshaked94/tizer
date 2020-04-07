@@ -8,7 +8,7 @@ const express = require('express')
 // const passport = require('passport');
 
 const app = express();
-
+var PORT = process.env.PORT || 5000;
 //set up view engine
 app.set('view engine', 'ejs');
 
@@ -37,8 +37,8 @@ app.get('/', (req, res) => {
     // res.render('home');
 });
 
-app.listen(3000, () => {
-    console.log('Now listening on port 3000');
+app.listen(PORT, () => {
+    console.log('Now listening on port ' + PORT);
 })
 
 module.exports.app = app;

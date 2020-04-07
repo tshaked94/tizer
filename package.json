@@ -12,6 +12,10 @@
   "engines": {
     "node": "13.10.1"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "dependencies": {
     "cookie-session": "^1.4.0",
     "ejs": "^3.0.1",
