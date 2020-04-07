@@ -1,4 +1,6 @@
 const express = require('express')
+const bodyParser = require("body-parser");
+
 // const router = express.Router;
 // const authRoutes = require('./api/auth-routes');
 // const profileRoutes = require('./api/profile-routes');
@@ -9,6 +11,13 @@ const express = require('express')
 // const passport = require('passport');
 
 const app = express();
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(bodyParser.json());
+
 var PORT = process.env.PORT || 5000;
 //set up view engine
 app.set('view engine', 'ejs');
