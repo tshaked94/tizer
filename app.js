@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
     // res.render('home');
 });
 
-app.get('/user/setAccessToken', (req, res) => {
+app.post('/user/setAccessToken', (req, res) => {
     res.send('access token recieved: ' + req.activeToken);
 });
 
