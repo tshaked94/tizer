@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 
 app.post('/user/setAccessToken', (req, res) => {
     console.log('welcome to set access token');
-    return axios({
+    axios({
         method: "GET",
         url: `https://graph.facebook.com/me?access_token=${req.body.activeToken}&fields=name`
       }).then((response) => {
