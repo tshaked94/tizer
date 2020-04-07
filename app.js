@@ -60,7 +60,8 @@ app.post('/user/getName', (req, res) => {
 
     token = req.body.activeToken;
 
-    res.send('this is the access token' + token)
+    res.write('this is demo for writing');
+    res.write('this is the access token' + token)
 
     axios({
         method: "GET",
