@@ -2,9 +2,11 @@ const app = require('./server').app
 const bodyParser = require("body-parser");
 const api = require('./api/api');
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+)
 
 app.use(bodyParser.json());
 
