@@ -2,13 +2,10 @@ const app = require('./server').app
 const express = require('express');
 const bodyParser = require("body-parser");
 const api = require('./api/api');
-const connector = require('./lib/database/connection');
+
 
 // const mongoose = require('mongoose');
 // const keys = require('./lib/config/keys');
-
-
-connector.connectDB();
 
 // mongoose.connect(keys.mongodb.dbURI,
 //     { useNewUrlParser: true, useUnifiedTopology: true },
