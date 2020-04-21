@@ -1,53 +1,21 @@
 const router = require('../../../server').express.Router();
-const login = require('../../../lib/model/user/login');
-const user = require('../../../lib/database/schemas/User');
+const userLogin = require('../../../lib/model/user/login');
+const User = require('../../../lib/database/schemas/User');
 
-router.get('/', async (request, response) => {
+router.get('/tizer', async (request, response) => {
 
-    console.log('in api/user/login');
-    checkToken(request.get('token'));
-    login('EAAJXZAtXFRmYBAOTC7mEVv0Gb9xU3Qmdz264ydLOCvgKhnzPzZCh6MlhFfcS1tqqk4ws5U7b3DDUTzduZBOApIfpklidc2qrNNvGDoZBuFWt6SyZCmSOB8e6ug6QZB1OZBW8kvJSoSSJ53C26RYfryuuR4SeN2geZCz5ZAqmjdTPWzXFEblRRTiPHZC6Uql5AtNzSfNmOHoZBa05AZDZD');
+    console.log('in api/user/login/tizer');
+    userLogin.checkToken(request.get('token'), function(result){
+        console.log(result);
+        response.send(result);
+    });
 
-    // const { id, token, email, name } = request.body;
+});
 
-    // // console.log('first name is:' + firstName);
-    // // console.log('last name is:' + lastName);
+router.get('/facebook', async (request, response) => {
 
-    // let newUser = {
-    //     id: id,
-    //     token: token,
-    //     email: email,
-    //     name: name
-    // };
-    // console.log('new user after init is: ' + newUser.toString());
-
-    // let userModel = new user(newUser);
-
-    // console.log('new user is ' + userModel.toString());
-
-    // await userModel.save().catch(() => console.log('user has not been saved'));
-    // userModel.save();
-    // response.json(userModel);
-
-    // token = request.body.activeToken;
-    // var profile = login(token);
-    // response.send(profile);
+    console.log('in api/user/login/facebook');
+    userLogin.login(request.get('access_token'));
 });
 
 module.exports = router;
-
-
-// app.post('/user/setAccessToken', (req, res) => {
-//     console.log('welcome to set access token');
-//     token = req.body.activeToken;
-//     res.send('access token recieved: ' + token);
-// });
-
-// app.post('/user/getName', (req, res) => {
-//     axios({
-//         method: "GET",
-//         url: `https://graph.facebook.com/me?access_token=${token}&fields=name`
-//       }).then((response) => {
-//           res.send(response);
-//     });
-// });

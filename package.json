@@ -22,6 +22,7 @@
     "cookie-session": "^1.4.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "md5": "^2.2.1",
     "mongoose": "^5.9.5",
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
