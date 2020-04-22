@@ -13,9 +13,10 @@ router.get('/tizer', async (request, response) => {
 });
 
 router.get('/facebook', async (request, response) => {
-
     console.log('in api/user/login/facebook');
-    userLogin.login(request.get('access_token'));
+    await userLogin.login(request.get('access_token'), function(token){
+        response.send(token);
+    });
 });
 
 module.exports = router;
