@@ -1,6 +1,6 @@
 const router = require('../../../server').express.Router();
 const userLogin = require('../../../lib/model/user/login');
-const User = require('../../../lib/database/schemas/User');
+const User = require('../../../lib/database/schemas/user/User');
 
 router.get('/tizer', async (request, response) => {
 
