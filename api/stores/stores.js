@@ -1,10 +1,12 @@
 const express = require('../../server').express;
 const router = express.Router();
-const storeModel = require('../../lib/model/store/store');
+const store = require('../../lib/model/store/store');
+
 
 router.post('/', async (request, response) => {
     // add store
-    storeModel.addStore(request.body).then((res) => {
+    //need to validate category??
+    store.addStore(request.body).then((res) => {
         console.log('Store ' + res + ' added successfully');
     });
 });

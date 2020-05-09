@@ -21,9 +21,6 @@ router.get('/facebook', async (request, response) => {
         .then((token) => {
             console.log('in cb func');
             response.send(token);
-        }).catch((error) => {
-            console.log(error.message)
-            response.send(error);
         });
 });
 
