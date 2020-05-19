@@ -8,7 +8,7 @@ router.get('', async (request, response) => {
     var distance = request.query.distance;
     var userCoordinates = request.query.coordinates;
 
-    await categories.validateCategory(category);
+    await categories.validateCategory([category]);
 
     storeModel.findByCategory(category, distance, userCoordinates)
         .then((stores) => {
