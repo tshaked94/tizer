@@ -12,8 +12,6 @@ router.get('', async (request, response) => {
 
     storeModel.findByCategory(category, distance, userCoordinates)
         .then((stores) => {
-            console.log('in stores callback function');
-            console.log(stores);
             response.send(stores);
         });
 });
