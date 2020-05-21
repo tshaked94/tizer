@@ -10,9 +10,13 @@ router.post('/', async (request, response) => {
 
     categories.validateCategory(newStore.categories);
 
-    store.addStore(newStore).then(() => {
-        console.log('Store: \n ' + store + '\n added successfully');
-    });
+    store.addStore(newStore)
+        .catch((error) => {
+            console.log(error);
+        })
+        .then(() => {
+            response.send('Store added successfully!');
+        });
 });
 
 module.exports = router;
