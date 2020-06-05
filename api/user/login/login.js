@@ -17,11 +17,16 @@ router.get('/facebook', async (request, response) => {
     console.log('in api/user/login/facebook');
     console.log(request.get('access_token'));
 
-    await userLogin.login(request.get('access_token'))
-        .then((token) => {
-            console.log('in cb func');
-            response.send(token);
-        });
+    response.send(1593620856209);
+
+    // await userLogin.login(request.get('access_token'))
+    //     .then((token) => {
+    //         console.log('in cb func');
+    //         response.send(token);
+    //     })
+    //     .catch((err) => {
+    //         console.log('in catch login facenook block');
+    //     });
 });
 
 module.exports = router;
