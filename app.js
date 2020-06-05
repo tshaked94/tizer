@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     console.log('in origin url');
-    res.send('hi');
+    res.send('hi you');
 });
 
 
