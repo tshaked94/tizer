@@ -10,7 +10,7 @@ router.get('/tizer', async (request, response) => {
             console.log('in result');
             console.log(result);
             response.send(result);
-        })
+        });
 });
 
 router.get('/facebook', async (request, response) => {
