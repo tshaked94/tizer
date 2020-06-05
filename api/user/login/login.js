@@ -5,12 +5,13 @@ const User = require('../../../lib/database/schemas/user/User');
 router.get('/tizer', async (request, response) => {
 
     console.log('in api/user/login/tizer');
-    userLogin.checkToken(request.get('token'))
-        .then((result) => {
-            console.log('in result');
-            console.log(result);
-            response.send(result);
-        })
+    response.send('its still you');
+    // userLogin.checkToken(request.get('token'))
+    //     .then((result) => {
+    //         console.log('in result');
+    //         console.log(result);
+    //         response.send(result);
+    //     })
 });
 
 router.get('/facebook', async (request, response) => {
