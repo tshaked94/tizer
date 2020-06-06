@@ -10,7 +10,7 @@ router.post('/', async (request, response) => {
 
     categories.validateCategory(newStore.categories);
 
-    store.addStore(newStore)
+    store.addStore(newStcdsDSFore)
         .catch((error) => {
             console.log(error);
         })
