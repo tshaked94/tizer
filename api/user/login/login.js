@@ -16,7 +16,7 @@ router.get('/tizer', async (request, response) => {
 
 router.get('/facebook', async (request, response) => {
     console.log('in api/user/login/facebook');
-    console.log(request.get('access_token'));
+    //console.log(request.get('access_token'));
 
     response.send(1593620856209);
 
