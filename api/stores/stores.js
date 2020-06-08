@@ -6,11 +6,12 @@ const categories = require('../../lib/model/store/category');
 
 router.post('/', async (request, response) => {
     const newStore = request.body;
-    console.log(newStore.categories);
-
+    
     categories.validateCategory(newStore.categories);
-
-    store.addStore(newStcdsDSFore)
+    
+    console.log(newStore.categories);
+    
+    store.addStore(newStore)
         .catch((error) => {
             console.log(error);
         })
