@@ -13,13 +13,15 @@ router.get('/tizer', async (request, response) => {
 });
 
 router.get('/facebook', async (request, response) => {
-    console.log('in api/user/login/facebook');
-    console.log(request.get('accessToken'));
     await userLogin.login(request.get('accessToken'))
         .then((token) => {
             console.log('in cb func');
             response.send({ tizerToken: token });
+        })
+        .catch((err) => {
+            console.log('in error func');
+            console.log(err);
+            response.status(400).send(err);S
         });
 });
-
 module.exports = router;
