@@ -5,30 +5,22 @@ const User = require('../../../lib/database/schemas/user/User');
 router.get('/tizer', async (request, response) => {
 
     console.log('in api/user/login/tizer');
-    
     userLogin.checkToken(request.get('token'))
         .then((result) => {
             console.log('in result');
             console.log(result);
-            response.send(result);
+            response.send({ user: result });
         })
 });
 
 router.get('/facebook', async (request, response) => {
     console.log('in api/user/login/facebook');
-    const accessToken = request.query.access_token;
+    console.log(request.get('accessToken'));
 
-    console.log(accessToken);
-
-    await userLogin.login(accessToken)
+    await userLogin.login(request.get('accessToken'))
         .then((token) => {
             console.log('in cb func');
-            response.send(token);
-        })
-        .catch((err) => {
-            console.log('in catch login facenook block');
-            console.log('error:');
-            // console.log(err);
+            response.send({ tizerToken: token });
         });
 });
 
