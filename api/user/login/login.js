@@ -20,8 +20,7 @@ router.get('/facebook', async (request, response) => {
         })
         .catch((err) => {
             console.log('in error func');
-            console.log(err);
-            response.status(400).send(err);S
+            response.status(400).json({error: err.message});
         });
 });
 module.exports = router;
