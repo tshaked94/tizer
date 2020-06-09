@@ -10,7 +10,7 @@ db.once('open', function(){
 });
 
 var launchServer = function(){
-    var PORT = process.env.PORT || 5000;
+    var PORT = process.env.PORT || 4000;
     app.listen(PORT, () => {
         console.log('listens on port ' + PORT);
     });
