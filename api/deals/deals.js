@@ -1,7 +1,6 @@
 const express = require('../../server').express;
 const router = express.Router();
-const storeModel = require('../../lib/model/store/store');
-const categories = require('../../lib/model/store/category');
+const modelController = require('../../lib/model/modelController');
 
 router.get('', async (request, response) => {
     var category = request.query.category;
@@ -12,9 +11,8 @@ router.get('', async (request, response) => {
     console.log(distance);
     console.log(userCoordinates);
 
-    //await categories.validateCategory([category]);
 
-    storeModel.findByCategory(category, distance, userCoordinates)
+    modelController.findByCategory(category, distance, userCoordinates)
         .then((stores) => {
             response.send(stores);
         });

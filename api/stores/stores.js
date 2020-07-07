@@ -1,7 +1,10 @@
 const express = require('../../server').express;
 const router = express.Router();
-const store = require('../../lib/model/store/store');
-const categories = require('../../lib/model/store/category');
+const modelController = require('../../lib/model/modelController');
+// const { categories } = require('../../lib/model/modelController');
+// const store = require('../../lib/model/store/store');
+// const categories = require('../../lib/model/store/category');
+categories = modelController.categories;
 
 
 router.post('/', async (request, response) => {
@@ -11,7 +14,7 @@ router.post('/', async (request, response) => {
     
     console.log(newStore.categories);
     
-    store.addStore(newStore)
+    modelController.addStore(newStore)
         .catch((error) => {
             console.log(error);
         })

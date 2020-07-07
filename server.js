@@ -1,10 +1,11 @@
 const express = require('express')
-const connector = require('./lib/database/connection');
-const db = connector.db;
+const dbController = require('./database/dbController');
+const connection = dbController.connection;
 const app = express();
 
-connector.connectDB();
-db.once('open', function(){
+dbController.connectDB();
+
+connection.once('open', function(){
     console.log('Connected to MongoDB');
     launchServer();
 });

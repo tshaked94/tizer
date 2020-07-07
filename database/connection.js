@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const keys = require('../config/keys');
+const keys = require('./keys');
 
 const connectDB = async () => {
     // mongoose.set('useFindAndModify', false);
@@ -18,5 +18,5 @@ const connectDB = async () => {
     )
 }
 
-module.exports.db = mongoose.connection;
+module.exports.connection = mongoose.connection;
 module.exports.connectDB = connectDB;
