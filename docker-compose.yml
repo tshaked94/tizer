@@ -1,19 +1,9 @@
 version: '2'
 services:
   web:
-    build: .
-    command: nodeom app.js
+    image: saharhagbi/tizer:tizer_image
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
     ports:
       - "4000:4000"
-    # depends_on:
-      # - postgres
-    # environment:
-      # DATABASE_URL: postgres://todoapp@postgres/todos
-  # postgres:
-    # image: postgres:9.6.2-alpine
-    # environment:
-      # POSTGRES_USER: todoapp
-      # POSTGRES_DB: todos
