@@ -9,6 +9,7 @@ const storeSchema = new Schema({
     name: {type: String},
     categories: {type: [String]},
     phoneNumber: {type: String},
+    isKosher: {type: Boolean},
     workingHours: {type: {
         type: Number,
         type: Number,
