@@ -6,13 +6,9 @@ router.get('', async (request, response) => {
     var category = request.query.category;
     var distance = request.query.distance;
     var userCoordinates = request.query.coordinates;
+    var id = request.query.id;
 
-    console.log(category);
-    console.log(distance);
-    console.log(userCoordinates);
-
-
-    modelController.findByCategory(category, distance, userCoordinates)
+    modelController.findByCategory(category, distance, userCoordinates, id)
         .then((stores) => {
             response.send(stores);
         });
