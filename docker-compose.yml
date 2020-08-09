@@ -1,9 +1,16 @@
 version: '2'
 services:
-  web:
+  tizer:
+    container_name: tizer
     image: saharhagbi/tizer:tizer_image
     volumes:
       - .:/usr/app/
-      - /usr/app/node_modules
     ports:
       - "4000:4000"
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
