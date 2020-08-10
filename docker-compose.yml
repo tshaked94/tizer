@@ -7,6 +7,7 @@ services:
       - .:/usr/app/
     ports:
       - "4000:4000"
+      
   reverse-proxy:
     container_name: reverse-proxy
     image: nginx:latest
