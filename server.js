@@ -1,16 +1,16 @@
 const express = require('express')
 const dbController = require('./database/dbController');
-const connection = dbController.connection;
+const { connection } = dbController;
 const app = express();
 
 dbController.connectDB();
 
-connection.once('open', function(){
+connection.once('open', function () {
     console.log('Connected to MongoDB');
     launchServer();
 });
 
-var launchServer = function(){
+const launchServer = () => {
     var PORT = process.env.PORT || 4000;
     app.listen(PORT, () => {
         console.log('listens on port ' + PORT);
@@ -18,6 +18,6 @@ var launchServer = function(){
 };
 
 module.exports = {
-    app: app,
-    express: express
+    app,
+    express
 };
