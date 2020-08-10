@@ -14,7 +14,7 @@ router.get('/tizer', async (request, response) => {
 });
 
 router.get('/facebook', async (request, response) => {
-    await modelController.login(request.get('accessToken'))
+    modelController.login(request.get('accessToken'))
         .then((token) => {
             console.log('in cb func');
             response.send({ tizerToken: token });

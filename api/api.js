@@ -1,4 +1,4 @@
-const express = require('../server').express
+const { express } = require('../server');
 const userRoutes = require('./user/user');
 const dealsRoutes = require('./deals/deals');
 const storesRoutes = require('./stores/stores');

@@ -1,22 +1,18 @@
 const mongoose = require('mongoose');
 const keys = require('./keys');
 
-const connectDB = async () => {
+const connectDB = () => {
     // mongoose.set('useFindAndModify', false);
-    await mongoose.connect(keys.mongodb.dbURI, {
+    mongoose.connect(keys.mongodb.dbURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true
-    }).then(
-        () => {
-            console.info(``);
-        },
-        error => {
-            console.error(`Connection error: ${error.stack}`)
-            process.exit(1)
-        }
-    )
-}
 
-module.exports.connection = mongoose.connection;
-module.exports.connectDB = connectDB;
+    }).catch((error) => {
+        console.error(`Connection error: ${error.stack}`)
+        process.exit(1)
+    });
+}
+const { connection } = mongoose;
+
+module.exports = { connectDB, connection };

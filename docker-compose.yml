@@ -7,6 +7,8 @@ services:
       - .:/usr/app/
     ports:
       - "4000:4000"
+    restart: always
+
   reverse-proxy:
     container_name: reverse-proxy
     image: nginx:latest
@@ -14,3 +16,4 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
+    restart: always

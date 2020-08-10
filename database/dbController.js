@@ -1,20 +1,27 @@
-const connector = require('./connection');
-const user = require('./user/user');
-const date = require('../lib/model/utils/date');
-const store = require('./store/store');
-const userStores = require('../lib/model/user/stores');
+const { connection, connectDB } = require('./connection');
+const { saveToDB, updateUser, findUser } = require('./user/user');
+const { date } = require('../lib/model/utils/date');
+const { findStore, saveStore } = require('./store/store');
+const { getUserStores } = require('../lib/model/user/stores');
+
 
 module.exports = {
-    connectDB: connector.connectDB,
-    connection: connector.connection,
+    //connections
+    connectDB,
+    connection,
 
-    findStore: store.findStore,
-    saveStore: store.saveStore,
+    //store
+    findStore,
+    saveStore,
 
-    date: date,
+    //date
+    date,
 
-    saveUserToDB: user.saveToDB,
-    updateUser: user.updateUser,
-    findUser: user.findUser,
-    getUserStores: userStores.getUserStores
+    //user
+    saveToDB,
+    updateUser,
+    findUser,
+
+    //userStores
+    getUserStores
 };
