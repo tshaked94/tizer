@@ -1,38 +1,45 @@
 const User = require('../schemas/user/User');
-const date = require('../dbController').date;
+const { date } = require('../dbController');
+const { errMsg } = require('../utils/constants')
 
-async function saveToDB(user, token) {
-    var expirationDate = date.getDateTime(date.timeUnits.month, 2);
-    let newUser = {
-        facebookID: user.id,
+const saveToDB = async (user, token) => {
+    const expirationDate = date.getDateTime(date.timeUnits.month, 2);
+    const { id, email, name, birthday, link, picture: { data } } = user;
+
+    const newUser = {
+        facebookID: id,
         tizerToken: token,
         tokenExpiredDate: expirationDate,
-        email: user.email,
-        name: user.name,
-        birthday: user.birthday,
-        link: user.link,
-        picture: user.picture.data
+        email: email,
+        name: name,
+        birthday: birthday,
+        link: link,
+        picture: data
     };
 
-    let userModel = new User(newUser);
+    const userModel = new User(newUser);
 
 
-    await userModel.save()
-        .then(() => console.log('user saved'));
+    await userModel.save();
+    console.log('user saved');
 }
 
-async function findUser(facebookID, tizerToken)
-{
-    return User.findOne(facebookID, tizerToken);
+const findUser = (facebookID, tizerToken) => {
+    return User.findOne(facebookID, tizerToken)
+        .catch((err) => {
+            errMsg('finding, user');
+        });
 }
 
-async function updateUser(facebookID, tizerToken)
-{
-    return User.updateOne(facebookID, tizerToken);
+const updateUser = (facebookID, tizerToken) => {
+    return User.updateOne(facebookID, tizerToken)
+        .catch((err) => {
+            errMsg('updating', 'user');
+        });
 }
 
 module.exports = {
-    saveToDB: saveToDB,
-    findUser: findUser,
-    updateUser: updateUser
+    saveToDB,
+    findUser,
+    updateUser
 };

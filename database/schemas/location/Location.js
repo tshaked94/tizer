@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const coordinatesSchema = require('./Coordinates').schema;
+const { Schema } = mongoose;
+
+const { schema } = require('./Coordinates');
 
 const locationSchema = new Schema({
-    coordinates: {type: coordinatesSchema},
+    coordinates: { type: schema },
     country: { type: String },
     city: { type: String },
     street: { type: String },

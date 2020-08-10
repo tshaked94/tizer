@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const locationSchema = require('../location/Location').schema;
-const dealSchema = require('../Deal').schema;
+const { Schema } = mongoose;
+
+const { schema: locationSchema } = require('../location/Location');
+const { schema: dealSchema } = require('../Deal');
 
 const storeSchema = new Schema({
-    location: {type: locationSchema},
-    deals: {type: [dealSchema]},
-    name: {type: String},
-    categories: {type: [String]},
-    phoneNumber: {type: String},
-    isKosher: {type: Boolean},
-    workingHours: {type: {
-        type: Number,
-        type: Number,
-    }}
+    location: { type: locationSchema },
+    deals: { type: [dealSchema] },
+    name: { type: String },
+    categories: { type: [String] },
+    phoneNumber: { type: String },
+    isKosher: { type: Boolean },
+    workingHours: {
+        type: {
+            type: Number,
+            type: Number,
+        }
+    }
 });
 
 const Store = mongoose.model('store', storeSchema);
