@@ -1,9 +1,9 @@
 const User = require('../schemas/user/User');
-const { date } = require('../dbController');
+const { getDateTime, timeUnits } = require('../dbController');
 const { errMsg } = require('../utils/constants')
 
 const saveToDB = async (user, token) => {
-    const expirationDate = date.getDateTime(date.timeUnits.month, 2);
+    const expirationDate = getDateTime(timeUnits.month, 2);
     const { id, email, name, birthday, link, picture: { data } } = user;
 
     const newUser = {
@@ -31,8 +31,8 @@ const findUser = (facebookID, tizerToken) => {
         });
 }
 
-const updateUser = (facebookID, tizerToken) => {
-    return User.updateOne(facebookID, tizerToken)
+const updateUser = (facebookID, update) => {
+    return User.updateOne(facebookID, update)
         .catch((err) => {
             errMsg('updating', 'user');
         });

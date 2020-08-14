@@ -1,9 +1,6 @@
 const { express } = require('../../server');
 const router = express.Router();
 const modelController = require('../../lib/model/modelController');
-// const { categories } = require('../../lib/model/modelController');
-// const store = require('../../lib/model/store/store');
-// const categories = require('../../lib/model/store/category');
 const { categories } = modelController;
 
 
