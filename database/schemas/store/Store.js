@@ -2,11 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const { schema: locationSchema } = require('../location/Location');
-const { schema: dealSchema } = require('../Deal');
 
 const storeSchema = new Schema({
     location: { type: locationSchema },
-    deals: { type: [dealSchema] },
     name: { type: String },
     categories: { type: [String] },
     phoneNumber: { type: String },
@@ -16,7 +14,11 @@ const storeSchema = new Schema({
             type: Number,
             type: Number,
         }
-    }
+    },
+    deals: [{
+        type: Schema.Types.ObjectId,
+        ref: "deal",
+    }]
 });
 
 const Store = mongoose.model('store', storeSchema);
