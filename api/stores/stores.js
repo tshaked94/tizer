@@ -11,10 +11,6 @@ router.post('/', async (request, response) => {
     console.log(newStore.categories);
 
     modelController.addStore(newStore)
-        // .catch((error) => {
-        //     console.log(error);
-        //     throw error;
-        // })
         .then((res) => {
             response.send(res);
         });
@@ -23,10 +19,6 @@ router.post('/', async (request, response) => {
 router.get('/', async (request, response) => {
     const { id } = request.query;
     modelController.getStore(id)
-        // .catch((error) => {
-        //     console.log(error);
-        //     throw error;
-        // })
         .then((res) => {
             response.send(res);
         });

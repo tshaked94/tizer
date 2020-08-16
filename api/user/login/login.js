@@ -21,7 +21,7 @@ router.get('/facebook', async (request, response) => {
         })
         .catch((err) => {
             console.log('in error func');
-            response.status(400).send({ error: err.message });
+            response.status(400).send(err.message);
         });
 });
 module.exports = router;
