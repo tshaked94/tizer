@@ -6,11 +6,14 @@ const dealSchema = new Schema({
         categories: { type: [String] },
         reducedPrice: { type: Number },
         name: { type: String },
+        expiration_date: {type: Number},
+        store: {        
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "store",
+        }
 });
 
 const Deal = mongoose.model('deal', dealSchema);
 
-module.exports = {
-    model: Deal,
-    schema: dealSchema
-}; 
+module.exports = Deal

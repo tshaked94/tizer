@@ -4,11 +4,22 @@ const {errMsg} = require('../utils/constants');
 
 const findStore = () => {
     const foundStore = Store.find({})
+        .populate('deals')
         .catch((err) => {
             errMsg('finding', 'Store');
         });
 
     return foundStore;
+}
+
+const deleteStore = async (id) => {
+    deleted = await Store.deleteOne({_id: id});
+    return deleted
+}
+
+const editStore = async (id, store) => {
+    updatedStore = await Store.updateOne({_id: id}, store);
+    return updatedStore;
 }
 
 const saveStore = async (store) => {
@@ -29,5 +40,7 @@ const saveStore = async (store) => {
 
 module.exports = {
     saveStore,
-    findStore
+    findStore,
+    editStore,
+    deleteStore,
 };

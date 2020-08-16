@@ -4,8 +4,8 @@
   "description": "tizzer app package.json",
   "main": "app.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/tshaked94/tizer.git"
+    "type": "git",
+    "url": "https://github.com/tshaked94/tizer.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
