@@ -8,7 +8,7 @@ const rlUserStoreschema = new Schema({
         ref: "user"
     },
     storeID: {
-        type: Schema.Types.ObjectId,
+        type: [Schema.Types.ObjectId],
         required: true,
         ref: "store",
     }

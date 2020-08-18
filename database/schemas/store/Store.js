@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const { schema: locationSchema } = require('../location/Location');
+const { schema: openingHoursSchema } = require('../store/openingHours')
 
 const storeSchema = new Schema({
     location: { type: locationSchema },
@@ -9,12 +10,7 @@ const storeSchema = new Schema({
     categories: { type: [String] },
     phoneNumber: { type: String },
     isKosher: { type: Boolean },
-    workingHours: {
-        type: {
-            type: Number,
-            type: Number,
-        }
-    },
+    openingHours: { type: [openingHoursSchema] },
     deals: [{
         type: Schema.Types.ObjectId,
         ref: "deal",

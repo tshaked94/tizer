@@ -1,48 +1,53 @@
 const { express } = require('../../server');
 const router = express.Router();
-const modelController = require('../../lib/model/modelController');
-const { categories } = modelController;
+const { addStore, editStore, deleteStore, getStore, categories }
+    = require('../../lib/model/modelController');
 
-
-router.post('/', async (request, response) => { // add store
+// add store
+router.post('/', async (request, response) => {
     const store = request.body;
     // categories.validateCategory(store.categories);
+    console.log('in api/stores/');
+    addStore(store)
+        .then(() => {
+            console.log('in then property --> add store');
+            response.send('store added successfully');
+        });
+});
 
-    modelController.addStore(store)
+// edit store
+router.post('/:id', async (request, response) => {
+    const store = request.body;
+    const { id } = request.params;
+    // categories.validateCategory(store.categories);
+
+    editStore(id, store)
         .then((res) => {
             response.send(res);
         });
 });
 
-router.post('/:id', async (request, response) => { // edit store
-    const store = request.body;
-    const id = request.params.id;
-    // categories.validateCategory(store.categories);
-
-    modelController.editStore(id, store)
-        .then((res) => {
-            response.send(res);
-        });
-});
-
+//delete store
 router.delete('/:id', async (request, response) => {
-    const id = request.params.id;
-    modelController.deleteStore(id)
+    const { id } = request.params;
+    deleteStore(id)
+        .then((res) => {
+            response.send(res);
+        });
+});
+// get specific store
+router.get('/getstore/', async (request, response) => {
+    const { id } = request.query;
+    console.log('in get store' + id);
+    getStore(id)
         .then((res) => {
             response.send(res);
         });
 });
 
-router.get('/:id', async (request, response) => { // get specific store
-    const id = request.params.id;
-    modelController.getStore(id)
-        .then((res) => {
-            response.send(res);
-        });
-});
-
-router.get('', async (request, response) => { // get all stores
-    modelController.getStore()
+// get all stores
+router.get('', async (request, response) => {
+    getStore()
         .then((res) => {
             response.send(res);
         });

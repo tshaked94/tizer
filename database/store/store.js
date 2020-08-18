@@ -1,11 +1,18 @@
 const Store = require('../schemas/store/Store');
 const rlUserStore = require('../schemas/rlUserStore/rlUserStore');
-const {errMsg} = require('../utils/constants');
+const { errMsg } = require('../utils/constants');
+const rlUserStoreModel = require('../user/userstores');
 
-const findStore = () => {
-    const foundStore = Store.find({})
+const findStore = (filter) => {
+    var filterObj = {};
+
+    Object.assign(filterObj, filter);
+    Object.keys(filterObj).forEach(key =>
+        filterObj[key] === undefined && delete filterObj[key]);
+
+    const foundStore = Store.find(filterObj)
         .populate('deals')
-        .catch((err) => {
+        .catch(() => {
             errMsg('finding', 'Store');
         });
 
@@ -13,12 +20,12 @@ const findStore = () => {
 }
 
 const deleteStore = async (id) => {
-    deleted = await Store.deleteOne({_id: id});
+    deleted = await Store.deleteOne({ _id: id });
     return deleted
 }
 
 const editStore = async (id, store) => {
-    updatedStore = await Store.updateOne({_id: id}, store);
+    updatedStore = await Store.updateOne({ _id: id }, store);
     return updatedStore;
 }
 
@@ -28,13 +35,9 @@ const saveStore = async (store) => {
     await storeModel.save()
         .catch((err) => {
             errMsg('saving', 'Store');
+            console.log(err.message);
         });
 
-    const rlUserStoreModel = new rlUserStore({ userID: store.userID, storeID: storeModel.id });
-    await rlUserStoreModel.save()
-        .catch((err) => {
-            errMsg('saving', 'rlUserStore');
-        });
     return storeModel;
 }
 

@@ -6,7 +6,6 @@ router.get('/tizer', async (request, response) => {
     modelController.checkToken(request.get('token'))
         .then((result) => {
             console.log('in result');
-            console.log(result);
             response.send({ user: result });
         }).catch((err) => {
             response.status(400).send(err.message);

@@ -6,7 +6,7 @@ const dealSchema = new Schema({
         categories: { type: [String] },
         reducedPrice: { type: Number },
         name: { type: String },
-        expiration_date: {type: Number},
+        expiration_date: {type: String},
         store: {        
             type: Schema.Types.ObjectId,
             required: true,
