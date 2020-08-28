@@ -7,11 +7,11 @@ const rlUserStoreschema = new Schema({
         required: true,
         ref: "user"
     },
-    storeID: {
-        type: [Schema.Types.ObjectId],
+    storeID: [{
+        type: Schema.Types.ObjectId,
         required: true,
         ref: "store",
-    }
+    }]
 });
 
 const rlUserStore = mongoose.model('rlUserStore', rlUserStoreschema);

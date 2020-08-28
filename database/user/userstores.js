@@ -4,9 +4,9 @@ const { resolveInclude } = require('ejs');
 
 const getUserStores = async (userId) => {
     // get user related stores (join user to rl to store)
-    return await userStoreModel.find({ userID: userId })
-        .populate('userID')
+    const res = await userStoreModel.find({ userID: userId })
         .populate('storeID');
+        return res[0].storeID;
 }
 
 const saveNewUserStore = async (userID, storeID) => {
