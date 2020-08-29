@@ -36,8 +36,8 @@ router.delete('/:id', async (request, response) => {
         });
 });
 // get specific store
-router.get('/getstore/', async (request, response) => {
-    const { id } = request.query;
+router.get('/:id', async (request, response) => {
+    const { id } = request.params;
     console.log('in get store' + id);
     getStore(id)
         .then((res) => {
