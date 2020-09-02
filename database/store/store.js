@@ -1,5 +1,7 @@
 const Store = require('../schemas/store/Store');
 const rlUserStore = require('../schemas/rlUserStore/rlUserStore');
+const Review = require('../schemas/reviews/reviews');
+const rlStoreReview = require('../schemas/rlStoreReview/rlStoreReview');
 const { errMsg } = require('../utils/constants');
 const rlUserStoreModel = require('../user/userstores');
 
@@ -21,7 +23,7 @@ const findStore = (filter) => {
 
 const deleteStore = async (id) => {
     deleted = await Store.deleteOne({ _id: id });
-    return deleted
+    return deleted;
 }
 
 const editStore = async (id, store) => {
@@ -41,9 +43,49 @@ const saveStore = async (store) => {
     return storeModel;
 }
 
+const addFirstReview = async (storeID, reviewID) => {
+    
+    const rlStoreReviewModel = new rlStoreReview({ storeID: storeID, reviewID: reviewID });
+    await rlStoreReviewModel.save()
+        .catch((err) => {
+            errMsg('saving', 'rlStoreReview');
+        });
+    return reviewAdded;
+}
+
+const saveReview = async (review) => {
+    const reviewObj = new Review({rate: review.rate, comment: review.comment});
+    reviewAdded = await reviewObj.save()
+                    .catch((err) => {
+                        errMsg('saving', 'Review');
+                    });
+     return reviewAdded;
+}
+
+const findStoreReviewObj = async (filter) => {
+    return rlStoreReview.find(filter).exec();
+}
+
+const findStoreRlReviews = async(filter) => {
+    const res = await rlStoreReview.find(filter)
+    .populate('reviewID');
+    return res[0].storeID;
+}
+
+const addReviewToStore = async (storeID, reviewIDToPush) => {
+    console.log(reviewIDToPush);
+    rlStoreReview.updateOne({ storeID: storeID },
+        { $push: { reviewID: reviewIDToPush } }).exec();
+}
+
 module.exports = {
     saveStore,
     findStore,
     editStore,
     deleteStore,
+    addFirstReview,
+    addReviewToStore,
+    findStoreReviewObj,
+    findStoreRlReviews,
+    saveReview
 };

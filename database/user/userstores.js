@@ -21,7 +21,7 @@ const saveNewUserStore = async (userID, storeID) => {
 const addStoreToUserStore = async (userID, storeIDToPush) => {
     console.log('in adding to existing object ------------ >');
     console.log(storeIDToPush);
-    userStoreModel.update({ userID: userID },
+    userStoreModel.updateOne({ userID: userID },
         { $push: { storeID: storeIDToPush } }).exec();
 }
 
