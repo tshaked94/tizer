@@ -1,10 +1,12 @@
 const { express } = require('../../server');
 const router = express.Router();
 const modelController = require('../../lib/model/modelController');
+const { longitude } = require('is-valid-coordinates');
 
 //get deals around
 router.get('', async (request, response) => {
-    const { categories, distance, coordinates } = request.query;
+    const { categories, distance, coordinates: coordinatesFromQuery } = request.query;
+    const coordinates = JSON.parse(coordinatesFromQuery);
 
     modelController.findByCategory(categories, distance, coordinates)
         .then((stores) => {
@@ -13,9 +15,6 @@ router.get('', async (request, response) => {
             console.log('in error func');
             response.status(400).send(err.message);
         });
-
-    response.send(request.params);
-    response.send(request);
 
 });
 
