@@ -2,7 +2,6 @@ const { express } = require('../../server');
 const router = express.Router();
 const { addStore, editStore, deleteStore, getStore, categories }
     = require('../../lib/model/modelController');
-
 // add store
 router.post('/', async (request, response) => {
     const store = request.body;
