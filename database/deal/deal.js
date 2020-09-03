@@ -11,7 +11,7 @@ const saveDeal = async (dealToAdd) => {
     const dealObj = new dealsModel(dealToAdd);
     await dealObj.save();
 
-    const store = await storeModel.findById(dealToAdd.store);
+    const store = await storeModel.findById(dealToAdd.storeID);
     store.deals.push(dealObj.id);
     await store.save();
 

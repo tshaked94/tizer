@@ -5,6 +5,7 @@ router.get('/:id', async (request, response) => {
     const { id } = request.params;
     modelController.getUserStores(id)
         .catch((err) => {
+            console.log('in error func');
             response.status(400).send(err.message);
         })
         .then((result) => {

@@ -12,6 +12,9 @@ router.post('/', async (request, response) => {
         .then(() => {
             console.log('in then property --> add store');
             response.send('store added successfully');
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 
@@ -24,6 +27,9 @@ router.post('/:id', async (request, response) => {
     editStore(id, store)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 
@@ -33,6 +39,9 @@ router.delete('/:id', async (request, response) => {
     deleteStore(id)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 // get specific store
@@ -42,6 +51,9 @@ router.get('/:id', async (request, response) => {
     getStore(id)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 
@@ -50,6 +62,9 @@ router.get('', async (request, response) => {
     getStore()
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 

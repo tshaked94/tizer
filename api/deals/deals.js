@@ -4,14 +4,19 @@ const modelController = require('../../lib/model/modelController');
 
 //get deals around
 router.get('', async (request, response) => {
-    const { categories, distance, coordinates } = request.query;
+    // const { categories, distance, coordinates } = request.query;
 
-    modelController.findByCategory(categories, distance, coordinates)
-        .then((stores) => {
-            response.send(stores);
-        }).catch((err) => {
-            response.status(400).send(err.message);
-        });
+    // modelController.findByCategory(categories, distance, coordinates)
+    //     .then((stores) => {
+    //         response.send(stores);
+    //     }).catch((err) => {
+    //         console.log('in error func');
+    //         response.status(400).send(err.message);
+    //     });
+
+    response.send(request.params);
+    response.send(request);
+
 });
 
 //add deal
@@ -21,6 +26,9 @@ router.post('', async (request, response) => {
     modelController.addDeal(deal)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 
@@ -32,6 +40,9 @@ router.post('/:id', async (request, response) => {
     modelController.editDeal(id, deal)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 
@@ -42,6 +53,9 @@ router.delete('/:id', async (request, response) => {
     modelController.deleteDeal(id)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 
@@ -52,6 +66,9 @@ router.get('/getdeal/', async (request, response) => {
     modelController.getDeal(id)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
         });
 });
 
