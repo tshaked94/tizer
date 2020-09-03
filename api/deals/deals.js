@@ -15,7 +15,6 @@ router.get('', async (request, response) => {
             console.log('in error func');
             response.status(400).send(err.message);
         });
-
 });
 
 //add deal
