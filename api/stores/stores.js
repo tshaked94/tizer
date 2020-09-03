@@ -7,6 +7,7 @@ router.post('/', async (request, response) => {
     const store = request.body;
     // categories.validateCategory(store.categories);
     console.log('in api/stores/');
+    console.log(store);
     addStore(store)
         .then(() => {
             console.log('in then property --> add store');
