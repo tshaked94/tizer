@@ -4,15 +4,15 @@ const modelController = require('../../lib/model/modelController');
 
 //get deals around
 router.get('', async (request, response) => {
-    // const { categories, distance, coordinates } = request.query;
+    const { categories, distance, coordinates } = request.query;
 
-    // modelController.findByCategory(categories, distance, coordinates)
-    //     .then((stores) => {
-    //         response.send(stores);
-    //     }).catch((err) => {
-    //         console.log('in error func');
-    //         response.status(400).send(err.message);
-    //     });
+    modelController.findByCategory(categories, distance, coordinates)
+        .then((stores) => {
+            response.send(stores);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
+        });
 
     response.send(request.params);
     response.send(request);
