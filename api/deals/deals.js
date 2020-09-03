@@ -58,8 +58,8 @@ router.delete('/:id', async (request, response) => {
 });
 
 //get deal
-router.get('/getdeal/', async (request, response) => {
-    const { id } = request.query;
+router.get('/:id', async (request, response) => {
+    const { id } = request.params;
     console.log('in api/deals/getdeal');
     modelController.getDeal(id)
         .then((res) => {
