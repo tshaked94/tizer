@@ -54,7 +54,12 @@ const addFirstReview = async (storeID, reviewID) => {
 }
 
 const saveReview = async (review) => {
-    const reviewObj = new Review({rate: review.rate, comment: review.comment});
+    const reviewObj = new Review({
+        rate: review.rate,
+        comment: review.comment,
+        userID: review.userID,
+        adate: Math.floor(Date.now() / 1000)
+    });
     reviewAdded = await reviewObj.save()
                     .catch((err) => {
                         errMsg('saving', 'Review');
@@ -69,7 +74,7 @@ const findStoreReviewObj = async (filter) => {
 const findStoreRlReviews = async(filter) => {
     const res = await rlStoreReview.find(filter)
     .populate('reviewID');
-    return res[0].storeID;
+    return res[0].reviewID;
 }
 
 const addReviewToStore = async (storeID, reviewIDToPush) => {

@@ -1,8 +1,8 @@
 const { express } = require('../../server');
 const router = express.Router();
-const { addReview }
+const { addReview, getStoreReviews }
     = require('../../lib/model/modelController');
-    
+
 // add review
 router.post('/', async (request, response) => {
     const review = request.body;
@@ -10,6 +10,18 @@ router.post('/', async (request, response) => {
         .then((res) => {
             response.send(res);
         });
+});
+
+router.post('/:id', async (request, response) => { // edit review(?)
+
+});
+
+router.get('/:storeid', async (request, response) => { // get specific store reviews
+    const { storeid } = request.params;
+    getStoreReviews(storeid)
+        .then((res) => {
+            response.send(res);
+        })
 });
 
 module.exports = router;
