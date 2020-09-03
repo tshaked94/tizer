@@ -23,6 +23,7 @@ const findStore = (filter) => {
 
 const deleteStore = async (id) => {
     deleted = await Store.deleteOne({ _id: id });
+    //TODO - delete from rluserstore
     return deleted;
 }
 
