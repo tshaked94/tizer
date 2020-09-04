@@ -1,12 +1,13 @@
 const userStoreModel = require('../schemas/rlUserStore/rlUserStore');
 const { resolveInclude } = require('ejs');
+const { errMsg } = require('../utils/constants');
 
 
 const getUserStores = async (userId) => {
     // get user related stores (join user to rl to store)
     const res = await userStoreModel.find({ userID: userId })
         .populate('storeID');
-        return res[0].storeID;
+    return res[0].storeID;
 }
 
 const saveNewUserStore = async (userID, storeID) => {
@@ -26,8 +27,12 @@ const addStoreToUserStore = async (userID, storeIDToPush) => {
 }
 
 
-const findUserStoreObj = (filter) => {
-    return userStoreModel.find(filter).exec();
+const findUserStoreObj = async (filter) => {
+    return userStoreModel.find(filter)
+        .exec()
+        .catch(() => {
+            throw new Error(errMsg('finding', 'rlUserStore'));
+        });
 
 }
 
