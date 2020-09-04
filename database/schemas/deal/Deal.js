@@ -11,6 +11,10 @@ const dealSchema = new Schema({
             type: Schema.Types.ObjectId,
             required: true,
             ref: "store",
+        },
+        photos: {
+            type: [String],
+            default: []
         }
 });
 

@@ -14,7 +14,15 @@ const storeSchema = new Schema({
     deals: [{
         type: Schema.Types.ObjectId,
         ref: "deal",
-    }]
+    }],
+    tizers: {
+        type: [String],
+        default: []
+    },
+    photos: {
+        type: [String],
+        default: []
+    }
 });
 
 const Store = mongoose.model('store', storeSchema);
