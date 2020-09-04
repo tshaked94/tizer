@@ -1,6 +1,7 @@
 const dealsModel = require('../../database/schemas/deal/Deal');
 const storeModel = require('../schemas/store/Store');
 const { findStore } = require('../store/store');
+const { errMsg } = require('../utils/constants');
 
 
 //to tomer---->
@@ -24,30 +25,49 @@ const editDeal = async (id, deal) => {
 };
 
 const deleteDeal = async (id) => {
-    const dealToDelete = await dealsModel.findById({ _id: id});
-    console.log('--------');
-    // await dealsModel.deleteOne({ _id: id });
-    const res = await storeModel.findByIdAndUpdate(
-        dealToDelete.store,
-        { $pull: { deals: { id } } },function(err,model){
-            if(err){
-                 console.log(err);
-                 return res.send(err);
-              }
-              return model;
-            });
-    // var store = await storeModel.findById(dealToDelete.store);
-    // var deals = store.deals.toObject();
-    // const index = deals.indexOf(id);
-    // if (index > -1) {
-    //     deals.splice(index, 1);
-    // }
-    // console.log(deals);
-    // store.updateOne({_id: store._id}, {deals: deals});
-    console.log(res);
+    const idObj = { _id: id };
+    var dealToDelete;
 
-    return 'deleted successfully';
+    try {
+        dealToDelete = await findDeal(idObj);
+    } catch{
+        throw new Error("id is invalid, doesn\'t not match to any deal!");
+    }
+
+    console.log('deal to delete :\n' + dealToDelete);
+
+    // const { store } = dealToDelete[0];
+    deleteDealFromDealSchema(idObj);
+    console.log('deal delete from schemas deal');
+    console.log('id of the store is ' + store);
+
+    storeModel.updateMany({ deals: store },
+        { $pull: { deals: id } },
+        { multi: true })
+        .exec()
+        .catch(() => {
+            throw new Error(errMsg('delete', 'deals Array in store schema'));
+        });
+
+    console.log('deal delete from store object');
+    return 'deal deleted successfully!';
 };
+
+const deleteDealFromDealSchema = (filter) => {
+    dealsModel.deleteOne(filter)
+        .exec()
+        .catch(() => {
+            throw new Error(errMsg('delete', 'deals'));
+        });
+}
+
+const findDeal = async (filter) => {
+    return await dealsModel.find(filter)
+        .exec()
+        .catch(() => {
+            throw new Error(errMsg('find', 'deals in array from store'));
+        });
+}
 
 const getDeal = async (id) => {
     return await dealsModel.findById(id);

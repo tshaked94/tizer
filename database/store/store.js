@@ -15,21 +15,49 @@ const findStore = (filter) => {
     const foundStore = Store.find(filterObj)
         .populate('deals')
         .catch(() => {
-            errMsg('finding', 'Store');
+            throw new Error(errMsg('finding', 'Store'));
         });
 
     return foundStore;
 }
 
 const deleteStore = async (id) => {
-    deleted = await Store.deleteOne({ _id: id });
-    //TODO - delete from rluserstore
-    return deleted;
+    const idObj = { _id: id };
+    var storeToDelete;
+
+    try {
+        storeToDelete = await findStore(idObj)
+    } catch{
+        throw new Error("id is invalid, doesn\'t not match to any store!");
+    }
+
+    deleteStoreFromStoreSchema(idObj);
+    console.log('store with id of: ' + id + ' was deleted');
+
+    rlUserStore.updateMany({ storeID: id },
+        { $pull: { storeID: id } },
+        { multi: true })
+        .exec()
+        .catch(() => {
+            throw new Error(errMsg('delete', 'deals Array in store schema'));
+        });
+
+    console.log('storeID was deleted from rlUserStore Schema');
+
+    return 'store deleted successfully!';
 }
 
 const editStore = async (id, store) => {
     updatedStore = await Store.updateOne({ _id: id }, store);
     return updatedStore;
+}
+
+const deleteStoreFromStoreSchema = (filter) => {
+    Store.deleteOne(filter)
+        .exec()
+        .catch(() => {
+            throw new Error(errMsg('deleting', 'store'));
+        });
 }
 
 const saveStore = async (store) => {
@@ -45,7 +73,7 @@ const saveStore = async (store) => {
 }
 
 const addFirstReview = async (storeID, reviewID) => {
-    
+
     const rlStoreReviewModel = new rlStoreReview({ storeID: storeID, reviewID: reviewID });
     await rlStoreReviewModel.save()
         .catch((err) => {
@@ -62,19 +90,19 @@ const saveReview = async (review) => {
         adate: Math.floor(Date.now() / 1000)
     });
     reviewAdded = await reviewObj.save()
-                    .catch((err) => {
-                        errMsg('saving', 'Review');
-                    });
-     return reviewAdded;
+        .catch((err) => {
+            errMsg('saving', 'Review');
+        });
+    return reviewAdded;
 }
 
 const findStoreReviewObj = async (filter) => {
     return rlStoreReview.find(filter).exec();
 }
 
-const findStoreRlReviews = async(filter) => {
+const findStoreRlReviews = async (filter) => {
     const res = await rlStoreReview.find(filter)
-    .populate('reviewID');
+        .populate('reviewID');
     return res[0].reviewID;
 }
 
