@@ -23,7 +23,11 @@ const storeSchema = new Schema({
         type: [String],
         default: []
     },
-    adate: {type: Number}
+    adate: {type: Number},
+    edate: {
+        type: Number,
+        default: null
+    }
 });
 
 const Store = mongoose.model('store', storeSchema);

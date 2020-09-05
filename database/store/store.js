@@ -48,7 +48,8 @@ const deleteStore = async (id) => {
 }
 
 const editStore = async (id, store) => {
-    updatedStore = await Store.updateOne({ _id: id }, store);
+    store.edate = Math.floor(Date.now() / 1000);
+    updatedStore = await Store.findOneAndUpdate({ _id: id }, { $set: store });
     return updatedStore;
 }
 

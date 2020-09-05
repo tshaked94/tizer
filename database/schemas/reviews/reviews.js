@@ -9,7 +9,11 @@ const reviewSchema = new Schema({
         require: true,
         ref: "user"
     },
-    adate: {type: Number}
+    adate: {type: Number},
+    edate: {
+        type: Number,
+        default: null
+    }
 });
 
 const Review = mongoose.model('review', reviewSchema);

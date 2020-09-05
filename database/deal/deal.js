@@ -21,7 +21,8 @@ const saveDeal = async (dealToAdd) => {
 };
 
 const editDeal = async (id, deal) => {
-    updatedDeal = await dealsModel.updateOne({ _id: id }, deal);
+    deal.edate = Math.floor(Date.now() / 1000);
+    updatedDeal = await dealsModel.findOneAndUpdate({ _id: id }, { $set: deal });
     return updatedDeal;
 };
 

@@ -20,7 +20,10 @@ const userSchema = new Schema({
     birthday: {type: String},
     picture: { type: pictureSchema},
     adate: {type: Number},
-    edate: {type: Number},
+    edate: {
+        type: Number,
+        default: null
+    },
 });
 
 const User = mongoose.model('user', userSchema);
