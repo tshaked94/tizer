@@ -15,6 +15,8 @@ const dbUploadPhoto = async (id, folder, fileName) => {
             storeModel.updateOne({ _id: id },
                 { $push: { photos: fileName } }).exec();
             break;
+        default:
+            throw new Error("Invalid object for photo: " + folder);
     }
 
 }
