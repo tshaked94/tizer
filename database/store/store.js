@@ -61,6 +61,7 @@ const deleteStoreFromStoreSchema = (filter) => {
 }
 
 const saveStore = async (store) => {
+    store.adate = Math.floor(Date.now() / 1000);
     const storeModel = new Store(store);
 
     await storeModel.save()

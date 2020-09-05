@@ -22,7 +22,8 @@ const storeSchema = new Schema({
     photos: {
         type: [String],
         default: []
-    }
+    },
+    adate: {type: Number}
 });
 
 const Store = mongoose.model('store', storeSchema);

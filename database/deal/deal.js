@@ -9,6 +9,7 @@ const { errMsg } = require('../utils/constants');
 //already written to find store by and filter
 // params you pass to the function (id, name, etc...)
 const saveDeal = async (dealToAdd) => {
+    dealToAdd.adate = Math.floor(Date.now() / 1000);
     const dealObj = new dealsModel(dealToAdd);
     await dealObj.save();
 

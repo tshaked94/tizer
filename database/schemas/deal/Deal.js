@@ -15,7 +15,8 @@ const dealSchema = new Schema({
         photos: {
             type: [String],
             default: []
-        }
+        },
+        adate: {type: Number}
 });
 
 const Deal = mongoose.model('deal', dealSchema);
