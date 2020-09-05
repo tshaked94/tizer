@@ -74,16 +74,6 @@ const saveStore = async (store) => {
     return storeModel;
 }
 
-const addFirstReview = async (storeID, reviewID) => {
-
-    const rlStoreReviewModel = new rlStoreReview({ storeID: storeID, reviewID: reviewID });
-    await rlStoreReviewModel.save()
-        .catch((err) => {
-            errMsg('saving', 'rlStoreReview');
-        });
-    return reviewAdded;
-}
-
 const saveReview = async (review) => {
     const reviewObj = new Review({
         rate: review.rate,
@@ -109,9 +99,9 @@ const findStoreRlReviews = async (filter) => {
 }
 
 const addReviewToStore = async (storeID, reviewIDToPush) => {
-    console.log(reviewIDToPush);
-    rlStoreReview.updateOne({ storeID: storeID },
-        { $push: { reviewID: reviewIDToPush } }).exec();
+    const res = await rlStoreReview.updateOne({ storeID: storeID },
+        { $push: { reviewID: reviewIDToPush } }, {"upsert": true}).exec();
+    return res;
 }
 
 module.exports = {
@@ -119,7 +109,6 @@ module.exports = {
     findStore,
     editStore,
     deleteStore,
-    addFirstReview,
     addReviewToStore,
     findStoreReviewObj,
     findStoreRlReviews,

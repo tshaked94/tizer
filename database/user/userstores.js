@@ -10,20 +10,12 @@ const getUserStores = async (userId) => {
     return res[0].storeID;
 }
 
-const saveNewUserStore = async (userID, storeID) => {
-    console.log('in saving new object ------------ >');
-    const rlUserStoreModel = new userStoreModel({ userID, storeID });
-    await rlUserStoreModel.save()
-        .catch((err) => {
-            errMsg('saving', 'rlUserStore');
-        });
-}
 
 const addStoreToUserStore = async (userID, storeIDToPush) => {
     console.log('in adding to existing object ------------ >');
     console.log(storeIDToPush);
     userStoreModel.updateOne({ userID: userID },
-        { $push: { storeID: storeIDToPush } }).exec();
+        { $push: { storeID: storeIDToPush } }, { "upsert": true }).exec();
 }
 
 
@@ -39,6 +31,4 @@ const findUserStoreObj = async (filter) => {
 module.exports = {
     getUserStores,
     addStoreToUserStore,
-    saveNewUserStore,
-    findUserStoreObj
 }
