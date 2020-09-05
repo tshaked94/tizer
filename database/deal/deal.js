@@ -31,6 +31,8 @@ const editDeal = async (id, deal) => {
     if (updatedDeal === null)
         throw new Error('deal id is invalid! there is no deal with id ' + id + ' in db!');
 
+    console.log('deal was updated successfully!');
+
     return updatedDeal;
 };
 

@@ -63,6 +63,9 @@ const editStore = async (id, store) => {
             useFindAndModify: false,
             returnOriginal: false
         });
+    if (updatedStore === null)
+        throw new Error('store id is invalid! there is no store with id ' + id + ' in db!');
+
     console.log('store was updated successfully!');
 
     return updatedStore;

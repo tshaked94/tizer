@@ -1,6 +1,6 @@
 const { express } = require('../../server');
 const router = express.Router();
-const { addStore, editStore, deleteStore, getStore, categories }
+const { addStore, editStore, deleteStore, getStore, categories, getDealsStore }
     = require('../../lib/model/modelController');
 // add store
 router.post('/', async (request, response) => {
@@ -60,6 +60,19 @@ router.get('/:id', async (request, response) => {
 // get all stores
 router.get('', async (request, response) => {
     getStore()
+        .then((res) => {
+            response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
+        });
+});
+
+router.get('/deals/:id', async (request, response) => {
+    console.log('in /api/stores/deals');
+    const { id } = request.params;
+
+    getDealsStore(id)
         .then((res) => {
             response.send(res);
         }).catch((err) => {
