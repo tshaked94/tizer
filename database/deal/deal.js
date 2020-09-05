@@ -22,7 +22,15 @@ const saveDeal = async (dealToAdd) => {
 
 const editDeal = async (id, deal) => {
     deal.edate = Math.floor(Date.now() / 1000);
-    updatedDeal = await dealsModel.findOneAndUpdate({ _id: id }, { $set: deal });
+    const updatedDeal = await dealsModel.findOneAndUpdate({ _id: id }, { $set: deal },
+        {
+            useFindAndModify: false,
+            returnOriginal: false
+        });
+
+    if (updatedDeal === null)
+        throw new Error('deal id is invalid! there is no deal with id ' + id + ' in db!');
+
     return updatedDeal;
 };
 
