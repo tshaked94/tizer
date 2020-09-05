@@ -4,6 +4,8 @@ const Review = require('../schemas/reviews/reviews');
 const rlStoreReview = require('../schemas/rlStoreReview/rlStoreReview');
 const { errMsg } = require('../utils/constants');
 const rlUserStoreModel = require('../user/userstores');
+const { resolveInclude } = require('ejs');
+const { evaluateCoordinatesFromAddress } = require('../../lib/model/utils/location');
 
 const findStore = (filter) => {
     var filterObj = {};
@@ -49,7 +51,20 @@ const deleteStore = async (id) => {
 
 const editStore = async (id, store) => {
     store.edate = Math.floor(Date.now() / 1000);
-    updatedStore = await Store.findOneAndUpdate({ _id: id }, { $set: store });
+    const { location } = store;
+
+    store.location.coordinates = await evaluateCoordinatesFromAddress(location);
+    console.log('before updating store, store is ========>');
+    console.log(store);
+
+    const updatedStore = await Store.findOneAndUpdate({ _id: id },
+        { $set: store },
+        {
+            useFindAndModify: false,
+            returnOriginal: false
+        });
+    console.log('store was updated successfully!');
+
     return updatedStore;
 }
 
@@ -100,7 +115,7 @@ const findStoreRlReviews = async (filter) => {
 
 const addReviewToStore = async (storeID, reviewIDToPush) => {
     const res = await rlStoreReview.updateOne({ storeID: storeID },
-        { $push: { reviewID: reviewIDToPush } }, {"upsert": true}).exec();
+        { $push: { reviewID: reviewIDToPush } }, { "upsert": true }).exec();
     return res;
 }
 
