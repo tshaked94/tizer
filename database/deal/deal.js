@@ -2,6 +2,7 @@ const dealsModel = require('../../database/schemas/deal/Deal');
 const storeModel = require('../schemas/store/Store');
 const { findStore } = require('../store/store');
 const { errMsg } = require('../utils/constants');
+const { validateObject } = require('../../lib/model/utils/validateUtils');
 
 
 //to tomer---->
@@ -38,22 +39,24 @@ const editDeal = async (id, deal) => {
 
 const deleteDeal = async (id) => {
     const idObj = { _id: id };
-    var dealToDelete;
+    // var dealToDelete;
 
-    try {
-        dealToDelete = await findDeal(idObj);
-    } catch{
-        throw new Error("id is invalid, doesn\'t not match to any deal!");
-    }
+    // try {
+    const dealToDelete = await findDeal(idObj);
+    // } catch{
+    // throw new Error("id is invalid, doesn\'t not match to any deal!");
+    // }
+    console.log(dealToDelete);
+    validateObject(dealToDelete[0], 'id is invalid, doesn\'t not match to any deal!');
 
     console.log('deal to delete :\n' + dealToDelete);
 
     // const { store } = dealToDelete[0];
     deleteDealFromDealSchema(idObj);
-    console.log('deal delete from schemas deal');
-    console.log('id of the store is ' + store);
+    console.log('deal deleted from schemas deal');
+    // console.log('id of the store is ' + store);
 
-    storeModel.updateMany({ deals: store },
+    storeModel.updateMany({ deals: id },
         { $pull: { deals: id } },
         { multi: true })
         .exec()
@@ -61,7 +64,7 @@ const deleteDeal = async (id) => {
             throw new Error(errMsg('delete', 'deals Array in store schema'));
         });
 
-    console.log('deal delete from store object');
+    console.log('deal deleted from store object');
     return 'deal deleted successfully!';
 };
 

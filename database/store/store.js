@@ -6,6 +6,7 @@ const { errMsg } = require('../utils/constants');
 const rlUserStoreModel = require('../user/userstores');
 const { resolveInclude } = require('ejs');
 const { evaluateCoordinatesFromAddress } = require('../../lib/model/utils/location');
+const { validateObject } = require('../../lib/model/utils/validateUtils');
 
 const findStore = (filter) => {
     var filterObj = {};
@@ -13,7 +14,7 @@ const findStore = (filter) => {
     Object.assign(filterObj, filter);
     Object.keys(filterObj).forEach(key =>
         filterObj[key] === undefined && delete filterObj[key]);
-
+    // console.log(filter);
     const foundStore = Store.find(filterObj)
         .populate('deals')
         .catch(() => {
@@ -25,14 +26,14 @@ const findStore = (filter) => {
 
 const deleteStore = async (id) => {
     const idObj = { _id: id };
-    var storeToDelete;
 
-    try {
-        storeToDelete = await findStore(idObj)
-    } catch{
-        throw new Error("id is invalid, doesn\'t not match to any store!");
-    }
+    // console.log(id);
+    const storeToDelete = await findStore(idObj)
 
+    //TODO!
+    //validate why error doesn't throw from validateObject functio and throw from findStore
+    // validateObject(storeToDelete[0], 'id is invalid, doesn\'t not match to any store!');
+    console.log('in here!!');
     deleteStoreFromStoreSchema(idObj);
     console.log('store with id of: ' + id + ' was deleted');
 
