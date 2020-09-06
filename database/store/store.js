@@ -114,6 +114,9 @@ const findStoreReviewObj = async (filter) => {
 const findStoreRlReviews = async (filter) => {
     const res = await rlStoreReview.find(filter)
         .populate('reviewID');
+    if (res === undefined || res.length == 0) {
+        return [];
+    }
     return res[0].reviewID;
 }
 
