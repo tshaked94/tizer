@@ -17,12 +17,7 @@ const dealSchema = new Schema({
         type: [String],
         default: []
     },
-    adate: { type: Number },
-    edate: {
-        type: Number,
-        default: null
-    }
-});
+}, {timestamps: true});
 
 const Deal = mongoose.model('deal', dealSchema);
 

@@ -10,7 +10,7 @@ const { validateObject } = require('../../lib/model/utils/validateUtils');
 //already written to find store by and filter
 // params you pass to the function (id, name, etc...)
 const saveDeal = async (dealToAdd) => {
-    dealToAdd.adate = Math.floor(Date.now() / 1000);
+    dealToAdd.adate = Date.now();
     const dealObj = new dealsModel(dealToAdd);
     await dealObj.save();
 
@@ -22,7 +22,7 @@ const saveDeal = async (dealToAdd) => {
 };
 
 const editDeal = async (id, deal) => {
-    deal.edate = Math.floor(Date.now() / 1000);
+    deal.edate = Date.now();
     const updatedDeal = await dealsModel.findOneAndUpdate({ _id: id }, { $set: deal },
         {
             useFindAndModify: false,
