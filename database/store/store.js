@@ -113,7 +113,12 @@ const findStoreReviewObj = async (filter) => {
 
 const findStoreRlReviews = async (filter) => {
     const res = await rlStoreReview.find(filter)
-        .populate('reviewID');
+        .populate({
+            path: 'reviewID',
+            populate: {
+                path: 'userID'
+            }
+        });
     if (res === undefined || res.length == 0) {
         return [];
     }
