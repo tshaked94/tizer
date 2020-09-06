@@ -5,11 +5,11 @@ const { longitude } = require('is-valid-coordinates');
 
 //get deals around
 router.get('', async (request, response) => {
-    const { categories, distance, latitude, longtitude } = request.query;
+    const { category, distance, latitude, longtitude } = request.query;
     // const coordinates = JSON.parse(coordinatesFromQuery);
     const coordinates = { latitude, longtitude };
-    // console.log(coordinates);
-    modelController.findByCategory(categories, distance, coordinates)
+    console.log(category);
+    modelController.findByCategory(category, distance, coordinates)
         .then((stores) => {
             response.send(stores);
         }).catch((err) => {
