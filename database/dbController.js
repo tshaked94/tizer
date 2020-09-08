@@ -4,7 +4,7 @@ const { date } = require('../lib/model/utils/date');
 const { dbUploadPhoto } = require('./utils/image');
 const { findStore, saveStore, editStore, deleteStore, findStoreReviewObj, findStoreRlReviews, saveReview, addReviewToStore } = require('./store/store');
 const { getUserStores, addStoreToUserStore } = require('./user/userstores');
-const { saveDeal, editDeal, deleteDeal, getDeal } = require('./deal/deal');
+const { saveDeal, editDeal, deleteDeal, getDeal, findDeal, filterExpiredDeals } = require('./deal/deal');
 
 
 module.exports = {
@@ -33,6 +33,8 @@ module.exports = {
     editDeal,
     deleteDeal,
     getDeal,
+    findDeal,
+    filterExpiredDeals,
 
     //user
     saveToDB,

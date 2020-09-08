@@ -3,12 +3,15 @@ const router = express.Router();
 const modelController = require('../../lib/model/modelController');
 const { longitude } = require('is-valid-coordinates');
 
+
+
 //get deals around
 router.get('', async (request, response) => {
     const { category, distance, latitude, longtitude } = request.query;
     // const coordinates = JSON.parse(coordinatesFromQuery);
     const coordinates = { latitude, longtitude };
-    console.log(category);
+
+    // filterExpiredDeals();
     modelController.findByCategory(category, distance, coordinates)
         .then((stores) => {
             response.send(stores);
