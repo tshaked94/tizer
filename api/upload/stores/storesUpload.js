@@ -8,7 +8,8 @@ router.post('/:id', async (request, response) => { // upload photo for specific 
     console.log('in upload store photo');
     const { id } = request.params;
     const { image } = request.body;
-    uploadPhoto(id, image, "store");
+    const link = uploadPhoto(id, image, "store");
+    response.send(link);
 });
 
 module.exports = router;

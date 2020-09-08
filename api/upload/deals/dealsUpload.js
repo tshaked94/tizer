@@ -6,7 +6,8 @@ router.post('/:id', async (request, response) => { // upload photo for specific 
     console.log('in upload deal photo');
     const { id } = request.params;
     const { image } = request.body;
-    uploadPhoto(id, image, 'deal');
+    link = await uploadPhoto(id, image, 'deal');
+    response.send(link);
 });
 
 module.exports = router;

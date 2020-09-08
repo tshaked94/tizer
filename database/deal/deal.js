@@ -30,7 +30,6 @@ const saveDeal = async (dealToAdd) => {
 };
 
 const editDeal = async (id, deal) => {
-    deal.edate = Date.now();
     const updatedDeal = await dealsModel.findOneAndUpdate({ _id: id }, { $set: deal },
         {
             useFindAndModify: false,

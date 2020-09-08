@@ -23,12 +23,7 @@ const storeSchema = new Schema({
         type: [String],
         default: []
     },
-    adate: {type: Number},
-    edate: {
-        type: Number,
-        default: null
-    }
-});
+}, {timestamps: true});
 
 const Store = mongoose.model('store', storeSchema);
 
