@@ -25,6 +25,7 @@ const saveDeal = async (dealToAdd) => {
     store.deals.push(dealObj.id);
     await store.save();
 
+
     return dealObj;
 };
 
@@ -45,31 +46,15 @@ const editDeal = async (id, deal) => {
 
 const deleteDeal = async (id) => {
     const idObj = { _id: id };
-    // var dealToDelete;
-
-    // try {
     const dealToDelete = await findDeal(idObj);
-    // } catch{
-    // throw new Error("id is invalid, doesn\'t not match to any deal!");
-    // }
-    // console.log(dealToDelete);
     validateObject(dealToDelete[0], 'id is invalid, doesn\'t not match to any deal!');
 
     console.log('deal to delete :\n' + dealToDelete);
 
-    // const { store } = dealToDelete[0];
     deleteDealFromDealSchema(idObj);
     console.log('deal deleted from schemas deal');
-    // console.log('id of the store is ' + store);
 
     deleteDealFromStoreSchema({ deals: id });
-    // storeModel.updateMany({ deals: id },
-    //     { $pull: { deals: id } },
-    //     { multi: true })
-    //     .exec()
-    //     .catch(() => {
-    //         throw new Error(errMsg('delete', 'deals Array in store schema'));
-    //     });
 
     console.log('deal deleted from store object');
     return 'deal deleted successfully!';
@@ -98,7 +83,7 @@ const findDeal = async (filter) => {
         .exec()
         .catch((err) => {
             errMsg('find', 'deals in array from store')
-            throw new Error(err.message);
+            // throw new Error(err.message);
         });
 }
 

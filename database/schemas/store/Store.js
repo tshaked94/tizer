@@ -28,4 +28,4 @@ const storeSchema = new Schema({
 const Store = mongoose.model('store', storeSchema);
 
 
-module.exportslo = Store;
+module.exports = Store;

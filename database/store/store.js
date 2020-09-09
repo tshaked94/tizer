@@ -4,9 +4,7 @@ const Review = require('../schemas/reviews/reviews');
 const rlStoreReview = require('../schemas/rlStoreReview/rlStoreReview');
 const { errMsg } = require('../utils/constants');
 const rlUserStoreModel = require('../user/userstores');
-const { resolveInclude } = require('ejs');
 const { evaluateCoordinatesFromAddress } = require('../../lib/model/utils/location');
-const { validateObject } = require('../../lib/model/utils/validateUtils');
 
 const findStore = (filter) => {
     var filterObj = {};
@@ -16,9 +14,9 @@ const findStore = (filter) => {
         filterObj[key] === undefined && delete filterObj[key]);
     // console.log(filter);
     const foundStore = Store.find(filterObj)
-        .populate('deals')
+        .populate('deals').exec()
         .catch(() => {
-            throw new Error(errMsg('finding', 'Store'));
+            (errMsg('finding', 'Store'));
         });
 
     return foundStore;
@@ -27,13 +25,6 @@ const findStore = (filter) => {
 const deleteStore = async (id) => {
     const idObj = { _id: id };
 
-    // console.log(id);
-    const storeToDelete = await findStore(idObj)
-
-    //TODO!
-    //validate why error doesn't throw from validateObject functio and throw from findStore
-    // validateObject(storeToDelete[0], 'id is invalid, doesn\'t not match to any store!');
-    console.log('in here!!');
     deleteStoreFromStoreSchema(idObj);
     console.log('store with id of: ' + id + ' was deleted');
 
@@ -52,10 +43,6 @@ const deleteStore = async (id) => {
 
 const editStore = async (id, store) => {
     const { location } = store;
-
-    store.location.coordinates = await evaluateCoordinatesFromAddress(location);
-    console.log('before updating store, store is ========>');
-    console.log(store);
 
     const updatedStore = await Store.findOneAndUpdate({ _id: id },
         { $set: store },
