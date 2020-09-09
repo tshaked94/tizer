@@ -51,7 +51,6 @@ const deleteStore = async (id) => {
 }
 
 const editStore = async (id, store) => {
-    store.edate = Date.now();
     const { location } = store;
 
     store.location.coordinates = await evaluateCoordinatesFromAddress(location);
@@ -81,7 +80,6 @@ const deleteStoreFromStoreSchema = (filter) => {
 }
 
 const saveStore = async (store) => {
-    store.adate = Date.now();
     const storeModel = new Store(store);
 
     await storeModel.save()
@@ -98,7 +96,6 @@ const saveReview = async (review) => {
         rate: review.rate,
         comment: review.comment,
         userID: review.userID,
-        adate: Date.now()
     });
     reviewAdded = await reviewObj.save()
         .catch((err) => {

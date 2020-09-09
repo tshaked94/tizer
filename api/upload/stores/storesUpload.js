@@ -7,7 +7,9 @@ router.use('/tizer', tizersRoutes);
 router.post('/:id', async (request, response) => { // upload photo for specific store
     console.log('in upload store photo');
     const { id } = request.params;
-    uploadPhoto(id, request, response, "store");
+    const { image } = request.body;
+    const link = await uploadPhoto(id, image, "store");
+    response.send(link);
 });
 
 module.exports = router;

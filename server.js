@@ -2,7 +2,6 @@ const express = require('express')
 const dbController = require('./database/dbController');
 const { connection } = dbController;
 const app = express();
-const multer = require('multer');
 const path = require('path');
 
 dbController.connectDB();
@@ -23,6 +22,5 @@ const launchServer = () => {
 module.exports = {
     app,
     express,
-    multer,
     path,
 };

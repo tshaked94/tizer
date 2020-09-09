@@ -1,24 +1,23 @@
 const dealsModel = require('../schemas/deal/Deal');
 const storeModel = require('../schemas/store/Store');
 
-const dbUploadPhoto = async (id, folder, fileName) => {
-    switch(folder) {
+const dbUploadPhoto = async (id, link, object) => {
+    switch(object) {
         case "tizer":
-            storeModel.updateOne({ _id: id },
-                { $push: { tizers: fileName } }).exec();
+            await storeModel.updateOne({ _id: id },
+                { $push: { tizers: link } }).exec();
             break;
         case "deal":
-            dealsModel.updateOne({ _id: id },
-                { $push: { photos: fileName } }).exec();
+            await dealsModel.updateOne({ _id: id },
+                { $push: { photos: link } }).exec();
             break;
         case "store":
-            storeModel.updateOne({ _id: id },
-                { $push: { photos: fileName } }).exec();
+            await storeModel.updateOne({ _id: id },
+                { $push: { photos: link } }).exec();
             break;
         default:
-            throw new Error("Invalid object for photo: " + folder);
+            throw new Error("Invalid object for photo: " + object);
     }
-
 }
 
 module.exports = {

@@ -19,12 +19,7 @@ const userSchema = new Schema({
     link: {type: String},
     birthday: {type: String},
     picture: { type: pictureSchema},
-    adate: {type: Number},
-    edate: {
-        type: Number,
-        default: null
-    },
-});
+}, {timestamps: true});
 
 const User = mongoose.model('user', userSchema);
 
