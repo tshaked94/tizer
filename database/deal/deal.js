@@ -18,7 +18,6 @@ const saveDeal = async (dealToAdd) => {
     if (expiration_date !== undefined)
         dealToAdd.expiration_date = new Date(dealToAdd.expiration_date).getTime();
 
-
     const dealObj = new dealsModel(dealToAdd);
     await dealObj.save();
 
