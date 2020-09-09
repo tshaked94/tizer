@@ -4,12 +4,9 @@ const bodyParser = require("body-parser");
 const api = require('./api/api');
 
 app.use(express.json({ extended: false }));
-app.use(
-    bodyParser.urlencoded({
-        extended: true
-    }));
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 
 app.get('/', (req, res) => {
     console.log('in origin url');
