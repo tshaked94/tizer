@@ -3,8 +3,8 @@ const rlUserStore = require('../schemas/rlUserStore/rlUserStore');
 const Review = require('../schemas/reviews/reviews');
 const rlStoreReview = require('../schemas/rlStoreReview/rlStoreReview');
 const { errMsg } = require('../utils/constants');
-const rlUserStoreModel = require('../user/userstores');
-const { evaluateCoordinatesFromAddress } = require('../../lib/model/utils/location');
+// const rlUserStoreModel = require('../user/userstores');
+// const { evaluateCoordinatesFromAddress } = require('../../lib/model/utils/location');
 
 const findStore = (filter) => {
     var filterObj = {};

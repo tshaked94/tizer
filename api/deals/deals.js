@@ -62,6 +62,20 @@ router.delete('/:id', async (request, response) => {
         });
 });
 
+router.get('/location', async (request, response) => {
+    console.log('in api/deals/location');
+    const { dealsID } = request.query;
+
+    // console.log(dealsID);
+    modelController.getDealsLocation(dealsID)
+        .then((res) => {
+            response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
+        });
+});
+
 //get deal
 router.get('/:id', async (request, response) => {
     const { id } = request.params;
@@ -74,5 +88,6 @@ router.get('/:id', async (request, response) => {
             response.status(400).send(err.message);
         });
 });
+
 
 module.exports = router;
