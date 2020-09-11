@@ -11,7 +11,6 @@ const { getCurrentTime24Format } = require('../utils/time');
 //already written to find store by and filter
 // params you pass to the function (id, name, etc...)
 const saveDeal = async (dealToAdd) => {
-    dealToAdd.adate = Math.floor(Date.now() / 1000);
     const { expiration_date } = dealToAdd;
     console.log(expiration_date);
 

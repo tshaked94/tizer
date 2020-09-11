@@ -12,7 +12,7 @@ const rlUserStoreschema = new Schema({
         required: true,
         ref: "store",
     }]
-});
+}, {timestamps: true});
 
 const rlUserStore = mongoose.model('rlUserStore', rlUserStoreschema);
 
