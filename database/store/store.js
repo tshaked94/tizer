@@ -116,6 +116,16 @@ const addReviewToStore = async (storeID, reviewIDToPush) => {
     return res;
 }
 
+const deleteTizer = async (tizerID, storeID) => {
+    Store.updateMany({ _id: storeID },
+        { $pull: { tizers: tizerID } },
+        { multi: true })
+        .exec()
+        .catch(() => {
+            throw new Error(errMsg('delete', 'tizers Array in store schema'));
+        });
+};
+
 module.exports = {
     saveStore,
     findStore,
@@ -124,5 +134,6 @@ module.exports = {
     addReviewToStore,
     findStoreReviewObj,
     findStoreRlReviews,
-    saveReview
+    saveReview,
+    deleteTizer
 };

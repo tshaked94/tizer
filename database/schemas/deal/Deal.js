@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { schema: openingHoursSchema } = require('../store/openingHours');
 const { Schema } = mongoose;
+const { imageSchema } = require('../image/image');
 
 const dealSchema = new Schema({
     originalPrice: { type: Number },
@@ -14,10 +15,10 @@ const dealSchema = new Schema({
         required: true,
         ref: "store",
     },
-    photos: {
-        type: [String],
-        default: []
-    },
+    photos: [{
+        type: imageSchema,
+        default: [],
+    }, {timestamps: true}],
 }, {timestamps: true});
 
 const Deal = mongoose.model('deal', dealSchema);
