@@ -3,9 +3,9 @@ const router = express.Router();
 const { uploadPhoto, uploadBulkPhoto, deleteTizer } = require('../../../../lib/model/modelController');
 const { response } = require('express');
 
-router.post('/:id', async (req, res) => {
+router.post('/:id', async (request, response) => {
     console.log('in upload tizer');
-    const { id } = req.params;
+    const { id } = request.params;
     const { image, userID } = request.body;
     link = await uploadPhoto(id, image, userID, 'tizer');
     response.send(link);
