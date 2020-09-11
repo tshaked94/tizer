@@ -12,7 +12,7 @@ const rlStoreReviewSchema = new Schema({
         required: true,
         ref: "review",
     }]
-}, {timestamps: true});
+});
 
 const rlStoreReview = mongoose.model('rlStoreReview', rlStoreReviewSchema);
 
