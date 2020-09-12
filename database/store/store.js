@@ -124,7 +124,7 @@ const deleteTizer = async (tizerID, storeID) => {
         .catch(() => {
             throw new Error(errMsg('delete', 'tizers Array in store schema'));
         });
-    return updated;
+    return 'Tizer deleted succesfully';
 };
 
 module.exports = {

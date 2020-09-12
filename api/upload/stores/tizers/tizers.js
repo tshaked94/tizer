@@ -7,16 +7,24 @@ router.post('/:id', async (request, response) => {
     console.log('in upload tizer');
     const { id } = request.params;
     const { image, userID } = request.body;
-    link = await uploadPhoto(id, image, userID, 'tizer');
-    response.send(link);
+    uploadPhoto(id, image, userID, 'tizer')
+        .then(() => {
+            response.send('Tizer added successfully');
+        }).catch((err) => {
+            response.status(400).send(err.message);
+        });
 });
 
 router.delete('/:id', async (request, response) => {
     console.log('in delete tizer');
     const { id } = request.params;
     const { storeID } = request.query;
-    res = await deleteTizer(id, storeID);
-    response.send(res);
+    deleteTizer(id, storeID)
+        .then(() => {
+            response.send('Tizer deleted successfully');
+        }).catch((err) => {
+            response.status(400).send(err.message);
+        });
 });
 
 module.exports = router;
