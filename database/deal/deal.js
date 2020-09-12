@@ -15,7 +15,7 @@ const saveDeal = async (dealToAdd) => {
     console.log(expiration_date);
 
     if (expiration_date !== undefined)
-        dealToAdd.expiration_date = new Date(dealToAdd.expiration_date).getTime();
+        dealToAdd.expiration_date = Math.floor(new Date(expiration_date).getTime() / 1000);
 
     const dealObj = new dealsModel(dealToAdd);
     await dealObj.save();
@@ -93,30 +93,18 @@ const getDeal = async (id) => {
 const filterExpiredDeals = async () => {
 
     console.log('in filterExpiredDeals here');
-    const today = new Date().getDay();
-    // const dealsID = await dealsModel.find({ expiration_date: { $exists: true, $lt: Date.now() } }, { _id: 1 }).exec();
 
-    const allDeals = await findDeal({});
-    const dealsID = allDeals.filter((deal) => {
-        const { openingHours, expiration_date } = deal;
+    const dealsExpired = await findDeal({
+        expiration_date: {
+            $exists: true, $lt: Math.floor(Date.now() / 1000)
+        }
+    });
 
-        if (openingHours[today] === undefined && expiration_date === undefined)
-            return false;
-
-        else if (expiration_date === undefined)
-            return openingHours[today].closingTime < getCurrentTime24Format();
-
-        else if (openingHours[today] === undefined)
-            return expiration_date < Date.now();
-    })
-        .map((deal) => deal._id);
-
-    console.log(dealsID);
-
-    dealsID.map((deal) =>
-        deal._id)
-        .forEach((dealID) =>
-            deleteDeal(dealID)
+    console.log(dealsExpired);
+    
+    dealsExpired
+        .forEach((deal) =>
+            deleteDeal(deal._id)
         );
 }
 
