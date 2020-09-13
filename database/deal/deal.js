@@ -3,7 +3,7 @@ const storeModel = require('../schemas/store/Store');
 const { findStore } = require('../store/store');
 const { errMsg } = require('../utils/constants');
 const { validateObject } = require('../../lib/model/utils/validateUtils');
-const { getCurrentTime24Format } = require('../utils/time');
+const { setTimeSinceEpoch } = require('../utils/time');
 
 
 //to tomer---->
@@ -11,11 +11,7 @@ const { getCurrentTime24Format } = require('../utils/time');
 //already written to find store by and filter
 // params you pass to the function (id, name, etc...)
 const saveDeal = async (dealToAdd) => {
-    const { expiration_date } = dealToAdd;
-    console.log(expiration_date);
-
-    if (expiration_date !== undefined)
-        dealToAdd.expiration_date = Math.floor(new Date(expiration_date).getTime() / 1000);
+    setTimeSinceEpoch(dealToAdd);
 
     const dealObj = new dealsModel(dealToAdd);
     await dealObj.save();
@@ -29,6 +25,7 @@ const saveDeal = async (dealToAdd) => {
 };
 
 const editDeal = async (id, deal) => {
+    setTimeSinceEpoch(deal);
     const updatedDeal = await dealsModel.findOneAndUpdate({ _id: id }, { $set: deal },
         {
             useFindAndModify: false,
@@ -101,7 +98,7 @@ const filterExpiredDeals = async () => {
     });
 
     console.log(dealsExpired);
-    
+
     dealsExpired
         .forEach((deal) =>
             deleteDeal(deal._id)
