@@ -6,6 +6,7 @@ const { findStore, saveStore, editStore, deleteStore, findStoreReviewObj, findSt
 const { getChatFromStoreID, saveMessage, addMesssageToChat } = require('./chat/chat');
 const { getUserStores, addStoreToUserStore } = require('./user/userstores');
 const { saveDeal, editDeal, deleteDeal, getDeal, findDeal, filterExpiredDeals } = require('./deal/deal');
+const { getDateTime, timeUnits } = require('./utils/time');
 
 
 module.exports = {
@@ -46,7 +47,11 @@ module.exports = {
     addStoreToUserStore,
 
     //chat
-    getChatFromStoreID, 
+    getChatFromStoreID,
     saveMessage,
-    addMesssageToChat
+    addMesssageToChat,
+
+    //date
+    getDateTime,
+    timeUnits
 };

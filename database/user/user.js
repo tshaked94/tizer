@@ -1,5 +1,5 @@
 const User = require('../schemas/user/User');
-const { getDateTime, timeUnits } = require('../dbController');
+const { getDateTime, timeUnits } = require('../utils/time');
 const { errMsg } = require('../utils/constants')
 
 const saveToDB = async (user, token) => {
@@ -18,7 +18,8 @@ const saveToDB = async (user, token) => {
     };
 
     const userModel = new User(newUser);
-
+    console.log('=============================');
+    console.log(userModel);
 
     await userModel.save();
     console.log('user saved');
@@ -33,9 +34,9 @@ const findUser = async (facebookID, tizerToken) => {
 
 const updateUser = async (facebookID, update) => {
     return await User.updateOne(facebookID, update);
-        // .catch((err) => {
-        //     throw new Error()
-        // });
+    // .catch((err) => {
+    //     throw new Error()
+    // });
 }
 
 module.exports = {
