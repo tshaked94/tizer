@@ -6,18 +6,18 @@ const { errMsg } = require('../utils/constants');
 // const rlUserStoreModel = require('../user/userstores');
 // const { evaluateCoordinatesFromAddress } = require('../../lib/model/utils/location');
 
-const findStore = (filter) => {
+const findStore = async (filter) => {
     var filterObj = {};
 
     Object.assign(filterObj, filter);
     Object.keys(filterObj).forEach(key =>
         filterObj[key] === undefined && delete filterObj[key]);
     // console.log(filter);
-    const foundStore = Store.find(filterObj)
-        .populate('deals').exec()
-        .catch(() => {
-            (errMsg('finding', 'Store'));
-        });
+    const foundStore = await Store.find(filterObj)
+    .populate('deals').exec()
+    .catch(() => {
+        (errMsg('finding', 'Store'));
+    });
 
     return foundStore;
 }
