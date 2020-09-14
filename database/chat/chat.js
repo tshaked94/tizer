@@ -2,8 +2,6 @@ const { findStore } = require('../store/store');
 const { model: messageModel } = require('../schemas/chat/Message');
 const { model: chatModel } = require('../schemas/chat/Chat');
 const Store = require('../schemas/store/Store');
-const { errMsg } = require('../utils/constants');
-const { update } = require('../schemas/user/User');
 
 const getChatFromStoreID = async (storeID) => {
     return (await Store

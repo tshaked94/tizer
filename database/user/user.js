@@ -24,18 +24,18 @@ const saveToDB = async (user, token) => {
     console.log('user saved');
 }
 
-const findUser = (facebookID, tizerToken) => {
-    return User.findOne(facebookID, tizerToken)
+const findUser = async (facebookID, tizerToken) => {
+    return await User.findOne(facebookID, tizerToken)
         .catch((err) => {
             errMsg('finding, user');
         });
 }
 
-const updateUser = (facebookID, update) => {
-    return User.updateOne(facebookID, update)
-        .catch((err) => {
-            errMsg('updating', 'user');
-        });
+const updateUser = async (facebookID, update) => {
+    return await User.updateOne(facebookID, update);
+        // .catch((err) => {
+        //     throw new Error()
+        // });
 }
 
 module.exports = {
