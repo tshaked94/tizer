@@ -118,7 +118,7 @@ const addReviewToStore = async (storeID, reviewIDToPush) => {
 
 const deleteTizer = async (tizerID, storeID) => {
     updated = await Store.updateMany({ _id: storeID },
-        { $pull: { tizers: {_id: tizerID} } },
+        { $pull: { tizers: { _id: tizerID } } },
         { multi: true })
         .exec()
         .catch(() => {
@@ -126,6 +126,8 @@ const deleteTizer = async (tizerID, storeID) => {
         });
     return 'Tizer deleted succesfully';
 };
+
+
 
 module.exports = {
     saveStore,
