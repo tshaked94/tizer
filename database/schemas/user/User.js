@@ -3,23 +3,27 @@ const Schema = mongoose.Schema;
 const pictureSchema = require('./Picture').schema;
 
 const userSchema = new Schema({
+    longLivedAccessToken: {
+        accessToken: { type: String },
+        expirationDate: { type: Number }
+    },
     facebookID: {
         type: String,
         unique: true,
-        required: true 
+        required: true
     },
     tizerToken: {
         type: String,
         unique: true,
         required: true,
     },
-    tokenExpiredDate: {type: Number},
+    tokenExpiredDate: { type: Number },
     email: { type: String },
     name: { type: String, required: true },
-    link: {type: String},
-    birthday: {type: String},
-    picture: { type: pictureSchema},
-}, {timestamps: true});
+    link: { type: String },
+    birthday: { type: String },
+    picture: { type: pictureSchema },
+}, { timestamps: true });
 
 const User = mongoose.model('user', userSchema);
 
