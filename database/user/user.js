@@ -4,7 +4,8 @@ const { errMsg } = require('../utils/constants')
 
 const saveToDB = async (user, token) => {
     const expirationDate = getDateTime(timeUnits.month, 2);
-    const { id, email, name, birthday, link, picture: { data } } = user;
+    const { id, email, name, birthday, link, picture: { data },
+        longLivedAccessToken } = user;
 
     const newUser = {
         facebookID: id,
@@ -14,7 +15,8 @@ const saveToDB = async (user, token) => {
         name: name,
         birthday: birthday,
         link: link,
-        picture: data
+        picture: data,
+        longLivedAccessToken: longLivedAccessToken
     };
 
     const userModel = new User(newUser);
@@ -25,8 +27,8 @@ const saveToDB = async (user, token) => {
     console.log('user saved');
 }
 
-const findUser = async (facebookID, tizerToken) => {
-    return await User.findOne(facebookID, tizerToken)
+const findUser = async (facebookID) => {
+    return await User.findOne(facebookID)
         .catch((err) => {
             errMsg('finding, user');
         });
