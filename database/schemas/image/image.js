@@ -7,6 +7,7 @@ const imageSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "user"
     },
+    message: {type: String}
 }, {timestamps: true});
 
 const Image = mongoose.model('image', imageSchema);
