@@ -6,7 +6,7 @@ const { addMessage, getBusinessChat } = require('../../lib/model/modelController
 //adding message
 router.post('', async (request, response) => {
     console.log('in api/chat addMessage');
-    const { storeID, userID, textMessage } = request.query;
+    const { storeID, userID, textMessage } = request.body;
 
     addMessage(storeID, userID, textMessage)
         .then((result) => {
