@@ -7,7 +7,10 @@ const getUserStores = async (userId) => {
     // get user related stores (join user to rl to store)
     const res = await userStoreModel.find({ userID: userId })
         .populate('storeID');
-    return res[0].storeID;
+    if(res.length > 0) {
+        return res[0].storeID;
+    }
+    return res;
 }
 
 
