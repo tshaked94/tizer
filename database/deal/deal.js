@@ -26,11 +26,22 @@ const saveDeal = async (dealToAdd) => {
 
 const editDeal = async (id, deal) => {
     setTimeSinceEpoch(deal);
-    const updatedDeal = await dealsModel.findOneAndUpdate({ _id: id }, { $set: deal },
-        {
-            useFindAndModify: false,
-            returnOriginal: false
-        });
+
+    console.log(deal);
+    // const oldDeal = await findDeal({ _id: id }).exec();
+    // const { store: oldDealStoreID } = oldDeal;
+    // const { store: newDealStoreID } = deal;
+
+    // if (oldDealStoreID !== newDealStoreID) {
+    //     moveDealToNewStore(oldDealStoreID, newDealStoreID);
+    // }
+
+
+    const updatedDeal = await dealsModel
+        .findOneAndReplace({ _id: id }, deal,
+            { returnOriginal: false })
+        .exec();
+    // const updatedDeal = deal;
 
     if (updatedDeal === null)
         throw new Error('deal id is invalid! there is no deal with id ' + id + ' in db!');
@@ -39,6 +50,11 @@ const editDeal = async (id, deal) => {
 
     return updatedDeal;
 };
+
+const moveDealToNewStore = (oldDealStoreID, newDealStoreID) => {
+    storeModel.updateOne({_id: id}, )
+}
+
 
 const deleteDeal = async (id) => {
     const idObj = { _id: id };

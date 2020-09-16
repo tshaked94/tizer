@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const messageSchema = new Schema({
     user: {
-        id: { type: String },
+        _id: { type: String },
         name: { type: String },
         avatar: { type: String }
     },

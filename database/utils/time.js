@@ -4,8 +4,13 @@ const getCurrentTime24Format = () => {
 
 const setTimeSinceEpoch = (object) => {
     const { expiration_date } = object;
+
     if (expiration_date !== undefined)
         object.expiration_date = Math.floor(new Date(expiration_date).getTime() / 1000);
+
+    // object.expiration_date = (expiration_date !== undefined) ?
+    // Math.floor(new Date(expiration_date).getTime() / 1000)
+    // : undefined;
 }
 
 const timeUnits = {
