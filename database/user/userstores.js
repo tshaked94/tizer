@@ -7,7 +7,7 @@ const getUserStores = async (userId) => {
     // get user related stores (join user to rl to store)
     const res = await userStoreModel.find({ userID: userId })
         .populate('storeID');
-    if(res.length > 0) {
+    if (res.length > 0) {
         return res[0].storeID;
     }
     return res;
@@ -18,7 +18,8 @@ const addStoreToUserStore = async (userID, storeIDToPush) => {
     console.log('in adding to existing object ------------ >');
     console.log(storeIDToPush);
     userStoreModel.updateOne({ userID: userID },
-        { $push: { storeID: storeIDToPush } }, { "upsert": true }).exec();
+        { $push: { storeID: storeIDToPush } }, { upsert: true })
+        .exec();
 }
 
 
