@@ -38,14 +38,13 @@ router.post('', async (request, response) => {
 router.post('/:id', async (request, response) => {
     const deal = request.body;
     const { id } = request.params;
-    response.send(id);
-    // modelController.editDeal(id, deal)
-    //     .then((res) => {
-    //         response.send(res);
-    //     }).catch((err) => {
-    //         console.log('in error func');
-    //         response.status(400).send(err.message);
-    //     });
+    modelController.editDeal(id, deal)
+        .then((res) => {
+            response.send(res);
+        }).catch((err) => {
+            console.log('in error func');
+            response.status(400).send(err.message);
+        });
 });
 
 //delete deal
