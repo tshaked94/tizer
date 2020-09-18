@@ -36,7 +36,7 @@ const editDeal = async (id, deal) => {
     //     moveDealToNewStore(oldDealStoreID, newDealStoreID);
     // }
 
-
+    
     const updatedDeal = await dealsModel
         .findOneAndReplace({ _id: id }, deal,
             { returnOriginal: false })
