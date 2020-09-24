@@ -1,10 +1,11 @@
 const { findStore } = require('../store/store');
 const { model: messageModel } = require('../schemas/chat/Message');
 const { model: chatModel } = require('../schemas/chat/Chat');
-const Store = require('../schemas/store/Store');
+const { storeModel } = require('../schemas/store/Store');
+const { filterExpiredDeals } = require('../deal/deal');
 
 const getChatFromStoreID = async (storeID) => {
-    return (await Store
+    return (await storeModel
         .findById({ _id: storeID })
         .populate('chat')).chat;
 }
@@ -34,7 +35,12 @@ const addMesssageToChat = async (message, chatID) => {
         });
 }
 
+// const deleteChat = async (filter) => {
+//     await chatModel.deleteOne(filter).exec();
+// }
+
 module.exports = {
+    // deleteChat,
     getChatFromStoreID,
     saveMessage,
     addMesssageToChat

@@ -1,5 +1,5 @@
 const dealsModel = require('../../database/schemas/deal/Deal');
-const storeModel = require('../schemas/store/Store');
+const { storeModel } = require('../schemas/store/Store');
 const { findStore } = require('../store/store');
 const { errMsg } = require('../utils/constants');
 const { validateObject } = require('../../lib/model/utils/validateUtils');
@@ -28,15 +28,7 @@ const editDeal = async (id, deal) => {
     setTimeSinceEpoch(deal);
 
     console.log(deal);
-    // const oldDeal = await findDeal({ _id: id }).exec();
-    // const { store: oldDealStoreID } = oldDeal;
-    // const { store: newDealStoreID } = deal;
 
-    // if (oldDealStoreID !== newDealStoreID) {
-    //     moveDealToNewStore(oldDealStoreID, newDealStoreID);
-    // }
-
-    
     const updatedDeal = await dealsModel
         .findOneAndReplace({ _id: id }, deal,
             { returnOriginal: false })
@@ -50,11 +42,6 @@ const editDeal = async (id, deal) => {
 
     return updatedDeal;
 };
-
-const moveDealToNewStore = (oldDealStoreID, newDealStoreID) => {
-    storeModel.updateOne({_id: id}, )
-}
-
 
 const deleteDeal = async (id) => {
     const idObj = { _id: id };
@@ -114,6 +101,8 @@ const filterExpiredDeals = async () => {
     });
 
     console.log(dealsExpired);
+    if (dealsExpired === undefined)
+        return;
 
     dealsExpired
         .forEach((deal) =>
@@ -121,7 +110,15 @@ const filterExpiredDeals = async () => {
         );
 }
 
+// const deleteArrayofDeals = (dealsID) => {
+//     dealsID.forEach((dealID) => {
+//         console.log('in deal: ==> ' + dealID);
+//         deleteDeal(dealID);
+//     });
+// }
+
 module.exports = {
+    // deleteArrayofDeals,
     getDeal,
     saveDeal,
     editDeal,

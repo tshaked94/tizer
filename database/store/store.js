@@ -1,10 +1,10 @@
-const Store = require('../schemas/store/Store');
+const { storeModel, storeSchema } = require('../schemas/store/Store');
 const rlUserStore = require('../schemas/rlUserStore/rlUserStore');
 const Review = require('../schemas/reviews/reviews');
 const rlStoreReview = require('../schemas/rlStoreReview/rlStoreReview');
 const { errMsg } = require('../utils/constants');
-// const rlUserStoreModel = require('../user/userstores');
-// const { evaluateCoordinatesFromAddress } = require('../../lib/model/utils/location');
+// const { deleteChat } = require('../chat/chat');
+// const { deleteArrayofDeals } = require('../deal/deal');
 
 const findStore = async (filter) => {
     var filterObj = {};
@@ -13,11 +13,11 @@ const findStore = async (filter) => {
     Object.keys(filterObj).forEach(key =>
         filterObj[key] === undefined && delete filterObj[key]);
     // console.log(filter);
-    const foundStore = await Store.find(filterObj)
-    .populate('deals').exec()
-    .catch(() => {
-        (errMsg('finding', 'Store'));
-    });
+    const foundStore = await storeModel.find(filterObj)
+        .populate('deals').exec()
+        .catch(() => {
+            (errMsg('finding', 'Store'));
+        });
 
     return foundStore;
 }
@@ -25,7 +25,7 @@ const findStore = async (filter) => {
 const deleteStore = async (id) => {
     const idObj = { _id: id };
 
-    deleteStoreFromStoreSchema(idObj);
+    await deleteStoreFromStoreSchema(idObj);
     console.log('store with id of: ' + id + ' was deleted');
 
     rlUserStore.updateMany({ storeID: id },
@@ -33,7 +33,7 @@ const deleteStore = async (id) => {
         { multi: true })
         .exec()
         .catch(() => {
-            throw new Error(errMsg('delete', 'deals Array in store schema'));
+            throw new Error(errMsg('rlUserStore', 'store Array in store schema'));
         });
 
     console.log('storeID was deleted from rlUserStore Schema');
@@ -44,7 +44,7 @@ const deleteStore = async (id) => {
 const editStore = async (id, store) => {
     const { location } = store;
 
-    const updatedStore = await Store.findOneAndUpdate({ _id: id },
+    const updatedStore = await storeModel.findOneAndUpdate({ _id: id },
         { $set: store },
         {
             useFindAndModify: false,
@@ -58,24 +58,23 @@ const editStore = async (id, store) => {
     return updatedStore;
 }
 
-const deleteStoreFromStoreSchema = (filter) => {
-    Store.deleteOne(filter)
-        .exec()
-        .catch(() => {
-            throw new Error(errMsg('deleting', 'store'));
-        });
+const deleteStoreFromStoreSchema = async (filter) => {
+
+    const storeToDelete = await findStore(filter);
+
+    await storeToDelete[0].deleteOne();
 }
 
 const saveStore = async (store) => {
-    const storeModel = new Store(store);
+    const newStore = new storeModel(store);
 
-    await storeModel.save()
+    await newStore.save()
         .catch((err) => {
             errMsg('saving', 'Store');
             console.log(err.message);
         });
 
-    return storeModel;
+    return newStore;
 }
 
 const saveReview = async (review) => {
@@ -117,7 +116,7 @@ const addReviewToStore = async (storeID, reviewIDToPush) => {
 }
 
 const deleteTizer = async (tizerID, storeID) => {
-    updated = await Store.updateMany({ _id: storeID },
+    updated = await storeModel.updateMany({ _id: storeID },
         { $pull: { tizers: { _id: tizerID } } },
         { multi: true })
         .exec()
@@ -126,8 +125,6 @@ const deleteTizer = async (tizerID, storeID) => {
         });
     return 'Tizer deleted succesfully';
 };
-
-
 
 module.exports = {
     saveStore,
