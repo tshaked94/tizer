@@ -1,8 +1,8 @@
 const dealsModel = require('../schemas/deal/Deal');
-const storeModel = require('../schemas/store/Store');
+const { storeModel } = require('../schemas/store/Store');
 
 const dbUploadPhoto = async (id, imgObj, object) => {
-    switch(object) {
+    switch (object) {
         case "tizer":
             await storeModel.updateOne({ _id: id },
                 { $push: { tizers: imgObj } }).exec();

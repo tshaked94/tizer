@@ -127,6 +127,7 @@ const deleteTizer = async (tizerID, storeID) => {
 };
 
 module.exports = {
+    // getStoreFromDB,
     saveStore,
     findStore,
     editStore,
