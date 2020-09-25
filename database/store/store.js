@@ -126,8 +126,13 @@ const deleteTizer = async (tizerID, storeID) => {
     return 'Tizer deleted succesfully';
 };
 
+const getTizers = async (filter) => {
+    return await storeModel.find(filter).select('tizers -_id')
+        .populate('tizers.userID');
+}
+
 module.exports = {
-    // getStoreFromDB,
+    getTizers,
     saveStore,
     findStore,
     editStore,

@@ -110,13 +110,6 @@ const filterExpiredDeals = async () => {
         );
 }
 
-// const deleteArrayofDeals = (dealsID) => {
-//     dealsID.forEach((dealID) => {
-//         console.log('in deal: ==> ' + dealID);
-//         deleteDeal(dealID);
-//     });
-// }
-
 module.exports = {
     // deleteArrayofDeals,
     getDeal,
@@ -126,21 +119,3 @@ module.exports = {
     findDeal,
     filterExpiredDeals
 }
-
-//query for deals:
-
-// $or: [{
-    //     expiration_date: {
-    //         $exists: true, $lt: Date.now()
-    //     }
-    // },
-    // {
-    //     $and: [{ expiration_date: undefined }, {
-    //         $expr: {
-    //             $let: {
-    //                 vars: { hour: { $arrayElemAt: ["$openingHours", today] } },
-    //                 in: { $gt: ['openingHours.$$hour.closingTime', new Date().getHours().toString() + ':00'] }
-    //             }
-    //         }
-    //     }]
-    // }]

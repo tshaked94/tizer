@@ -3,7 +3,7 @@ const { saveToDB, updateUser, findUser } = require('./user/user');
 const { date } = require('../lib/model/utils/date');
 const { dbUploadPhoto } = require('./utils/image');
 const { findStore, saveStore, editStore, deleteStore, findStoreReviewObj, findStoreRlReviews,
-    saveReview, addReviewToStore, deleteTizer } = require('./store/store');
+    saveReview, addReviewToStore, deleteTizer, getTizers } = require('./store/store');
 const { getChatFromStoreID, saveMessage, addMesssageToChat } = require('./chat/chat');
 const { getUserStores, addStoreToUserStore } = require('./user/userstores');
 const { saveDeal, editDeal, deleteDeal, getDeal, findDeal, filterExpiredDeals } = require('./deal/deal');
@@ -24,6 +24,7 @@ module.exports = {
     findStoreRlReviews,
     addReviewToStore,
     saveReview,
+    getTizers,
 
     dbUploadPhoto,
     deleteTizer,
