@@ -23,22 +23,28 @@ const saveToDB = async (user, token) => {
     console.log('=============================');
     console.log(userModel);
 
-    await userModel.save();
+    await userModel
+        .save()
+        .catch((err) => {
+            throw new Error(errMsg('saving', 'user') + err.message);
+        });
     console.log('user saved');
 }
 
 const findUser = async (facebookID) => {
-    return await User.findOne(facebookID)
+    return await User
+        .findOne(facebookID)
         .catch((err) => {
-            errMsg('finding, user');
+            throw new Error(errMsg('finding', 'user') + err.message);
         });
 }
 
 const updateUser = async (facebookID, update) => {
-    return await User.updateOne(facebookID, update);
-    // .catch((err) => {
-    //     throw new Error()
-    // });
+    return await User
+        .updateOne(facebookID, update)
+        .catch((err) => {
+            throw new Error(errMsg('update', 'user') + err.message);
+        });
 }
 
 module.exports = {

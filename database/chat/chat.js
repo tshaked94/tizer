@@ -1,13 +1,17 @@
-const { findStore } = require('../store/store');
 const { model: messageModel } = require('../schemas/chat/Message');
 const { model: chatModel } = require('../schemas/chat/Chat');
 const { storeModel } = require('../schemas/store/Store');
-const { filterExpiredDeals } = require('../deal/deal');
+const { errMsg } = require('../utils/constants');
 
 const getChatFromStoreID = async (storeID) => {
-    return (await storeModel
+    const storeWithChat = (await storeModel
         .findById({ _id: storeID })
-        .populate('chat')).chat;
+        .populate('chat'))
+        .catch((err) => {
+            throw new Error(errMsg('find', 'store') + err.message);
+        });
+
+    return storeWithChat.chat;
 }
 
 const saveMessage = async (messageObj) => {
@@ -16,7 +20,7 @@ const saveMessage = async (messageObj) => {
     await newMessage
         .save()
         .catch((err) => {
-            throw new Error(err.message);
+            throw new Error(errMsg('save', 'message') + err.message);
         });
 
     return newMessage;
@@ -30,8 +34,7 @@ const addMesssageToChat = async (message, chatID) => {
             { $push: { messages: message } })
         .exec()
         .catch((err) => {
-            throw new Error(err.message);
-
+            throw new Error(errMsg('update', 'chat') + err.message);
         });
 }
 

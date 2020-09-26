@@ -1,7 +1,6 @@
 const { express } = require('../../../../server');
 const router = express.Router();
-const { uploadPhoto, uploadBulkPhoto, deleteTizer, getLastTizers } = require('../../../../lib/model/modelController');
-const { response } = require('express');
+const { uploadPhoto, deleteTizer, getLastTizers } = require('../../../../lib/model/modelController');
 
 router.post('/:id', async (request, response) => {
     console.log('in upload tizer');

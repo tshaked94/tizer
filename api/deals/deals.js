@@ -1,8 +1,7 @@
 const { express } = require('../../server');
 const router = express.Router();
-const modelController = require('../../lib/model/modelController');
-const { longitude } = require('is-valid-coordinates');
-
+const { findByCategory, addDeal, editDeal, deleteDeal,
+    getDealsLocation, getDeal } = require('../../lib/model/modelController');
 
 
 //get deals around
@@ -12,7 +11,7 @@ router.get('', async (request, response) => {
     const coordinates = { latitude, longtitude };
 
     // filterExpiredDeals();
-    modelController.findByCategory(category, distance, coordinates)
+    findByCategory(category, distance, coordinates)
         .then((stores) => {
             response.send(stores);
         }).catch((err) => {
@@ -25,7 +24,7 @@ router.get('', async (request, response) => {
 router.post('', async (request, response) => {
     const deal = request.body;
 
-    modelController.addDeal(deal)
+    addDeal(deal)
         .then((res) => {
             response.send(res);
         }).catch((err) => {
@@ -38,7 +37,7 @@ router.post('', async (request, response) => {
 router.post('/:id', async (request, response) => {
     const deal = request.body;
     const { id } = request.params;
-    modelController.editDeal(id, deal)
+    editDeal(id, deal)
         .then((res) => {
             response.send(res);
         }).catch((err) => {
@@ -51,7 +50,7 @@ router.post('/:id', async (request, response) => {
 router.delete('/:id', async (request, response) => {
     const { id } = request.params;
 
-    modelController.deleteDeal(id)
+    deleteDeal(id)
         .then((res) => {
             response.send(res);
         }).catch((err) => {
@@ -65,7 +64,7 @@ router.get('/location', async (request, response) => {
     const { dealsID } = request.query;
 
     // console.log(dealsID);
-    modelController.getDealsLocation(dealsID)
+    getDealsLocation(dealsID)
         .then((res) => {
             response.send(res);
         }).catch((err) => {
@@ -78,7 +77,7 @@ router.get('/location', async (request, response) => {
 router.get('/:id', async (request, response) => {
     const { id } = request.params;
     console.log('in api/deals/getdeal');
-    modelController.getDeal(id)
+    getDeal(id)
         .then((res) => {
             response.send(res);
         }).catch((err) => {

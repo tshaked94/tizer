@@ -1,25 +1,29 @@
 const dealsModel = require('../../database/schemas/deal/Deal');
 const { storeModel } = require('../schemas/store/Store');
-const { findStore } = require('../store/store');
 const { errMsg } = require('../utils/constants');
 const { validateObject } = require('../../lib/model/utils/validateUtils');
 const { setTimeSinceEpoch } = require('../utils/time');
 
 
-//to tomer---->
-//try tou use 'findStore' function, this is function that 
-//already written to find store by and filter
-// params you pass to the function (id, name, etc...)
 const saveDeal = async (dealToAdd) => {
     setTimeSinceEpoch(dealToAdd);
 
     const dealObj = new dealsModel(dealToAdd);
-    await dealObj.save();
+    await dealObj.save()
+        .catch((err) => {
+            throw new Error(errMsg('save', 'deal') + err.message);
+        });
 
-    const store = await storeModel.findById(dealToAdd.store);
+    const store = await storeModel.findById(dealToAdd.store)
+        .catch((err) => {
+            throw new Error(errMsg('find', 'store') + err.message);
+        });
+
     store.deals.push(dealObj.id);
-    await store.save();
-
+    await store.save()
+        .catch((err) => {
+            throw new Error(errMsg('save', 'store') + err.message);
+        });
 
     return dealObj;
 };
@@ -32,8 +36,10 @@ const editDeal = async (id, deal) => {
     const updatedDeal = await dealsModel
         .findOneAndReplace({ _id: id }, deal,
             { returnOriginal: false })
-        .exec();
-    // const updatedDeal = deal;
+        .exec()
+        .catch((err) => {
+            throw new Error(errMsg('find and replace', 'deal') + err.message);
+        });
 
     if (updatedDeal === null)
         throw new Error('deal id is invalid! there is no deal with id ' + id + ' in db!');
@@ -46,6 +52,7 @@ const editDeal = async (id, deal) => {
 const deleteDeal = async (id) => {
     const idObj = { _id: id };
     const dealToDelete = await findDeal(idObj);
+
     validateObject(dealToDelete[0], 'id is invalid, doesn\'t not match to any deal!');
 
     console.log('deal to delete :\n' + dealToDelete);
@@ -64,16 +71,16 @@ const deleteDealFromStoreSchema = (filter) => {
         { $pull: filter },
         { multi: true })
         .exec()
-        .catch(() => {
-            throw new Error(errMsg('delete', 'deals Array in store schema'));
+        .catch((err) => {
+            throw new Error(errMsg('delete', 'deals Array in store schema') + err.message);
         });
 }
 
 const deleteDealFromDealSchema = (filter) => {
     dealsModel.deleteMany(filter)
         .exec()
-        .catch(() => {
-            throw new Error(errMsg('delete', 'deals'));
+        .catch((err) => {
+            throw new Error(errMsg('delete', 'deals') + err.message);
         });
 }
 
@@ -81,13 +88,16 @@ const findDeal = async (filter) => {
     return await dealsModel.find(filter)
         .exec()
         .catch((err) => {
-            errMsg('find', 'deals in array from store')
-            // throw new Error(err.message);
+            throw new Error(errMsg('find', 'deals in array from store')
+                + err.message);
         });
 }
 
 const getDeal = async (id) => {
-    return await dealsModel.findById(id);
+    return await dealsModel.findById(id)
+        .catch((err) => {
+            throw new Error(errMsg('find', 'deal') + err.message);
+        });;
 }
 
 const filterExpiredDeals = async () => {

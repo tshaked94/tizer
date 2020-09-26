@@ -1,11 +1,11 @@
 const { express } = require('../../server');
 const router = express.Router();
-const { addStore, editStore, deleteStore, getStore, categories, getDealsStore }
+const { addStore, editStore, deleteStore, getStore, getDealsStore }
     = require('../../lib/model/modelController');
 // add store
 router.post('/', async (request, response) => {
     const store = request.body;
-    // categories.validateCategory(store.categories);
+    
     console.log('in api/stores/');
     console.log(store);
     addStore(store)
@@ -22,7 +22,6 @@ router.post('/', async (request, response) => {
 router.post('/:id', async (request, response) => {
     const store = request.body;
     const { id } = request.params;
-    // categories.validateCategory(store.categories);
 
     editStore(id, store)
         .then((res) => {

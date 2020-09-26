@@ -1,5 +1,5 @@
 const errMsg = (action, schemaName) => {
-    console.log("There was error in " + action + " in " + schemaName + " schema");
+    return ("There was error in " + action + " in " + schemaName + " schema\n");
 }
 
 module.exports = {

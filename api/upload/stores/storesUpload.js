@@ -8,12 +8,14 @@ router.post('/:id', async (request, response) => { // upload photo for specific 
     console.log('in upload store photo');
     const { id } = request.params;
     const { image, userID } = request.body;
-    link = await uploadPhoto(id, image, userID, 'store');
-    response.send(link);
+    uploadPhoto(id, image, userID, 'store')
+        .then((link) => {
+            console.log('in uploadPhoto success!');
+            response.send(link);
+        }).catch((err) => {
+            console.log('in error upload photo');
+            response.status(400).send(err.message);
+        });
 });
-
-router.delete('/:id', async (request, response) => {
-    console.log('in delete store photo');
-});
-
+    
 module.exports = router;

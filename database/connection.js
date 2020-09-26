@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const keys = require('./keys');
 
 const connectDB = () => {
-    // mongoose.set('useFindAndModify', false);
+    
     mongoose.connect(keys.mongodb.dbURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
