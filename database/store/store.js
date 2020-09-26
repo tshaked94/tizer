@@ -1,6 +1,7 @@
 const { storeModel } = require('../schemas/store/Store');
 const rlUserStore = require('../schemas/rlUserStore/rlUserStore');
 const Review = require('../schemas/reviews/reviews');
+const Deal = require('../schemas/deal/Deal');
 const rlStoreReview = require('../schemas/rlStoreReview/rlStoreReview');
 const { errMsg } = require('../utils/constants');
 
@@ -35,6 +36,8 @@ const deleteStore = async (id) => {
         });
 
     console.log('storeID was deleted from rlUserStore Schema');
+
+    Deal.deleteMany({_store: id});
 
     return 'store deleted successfully!';
 }
