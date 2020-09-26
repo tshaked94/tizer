@@ -4,12 +4,16 @@ const { storeModel } = require('../schemas/store/Store');
 const { errMsg } = require('../utils/constants');
 
 const getChatFromStoreID = async (storeID) => {
-    const storeWithChat = (await storeModel
-        .findById({ _id: storeID })
-        .populate('chat'))
-        .catch((err) => {
-            throw new Error(errMsg('find', 'store') + err.message);
-        });
+
+    let storeWithChat;
+    try {
+        storeWithChat = (await storeModel
+            .findById({ _id: storeID })
+            .populate('chat'));
+    }
+    catch (err) {
+        throw new Error(errMsg('find', 'store') + err.message);
+    }
 
     return storeWithChat.chat;
 }
@@ -38,12 +42,7 @@ const addMesssageToChat = async (message, chatID) => {
         });
 }
 
-// const deleteChat = async (filter) => {
-//     await chatModel.deleteOne(filter).exec();
-// }
-
 module.exports = {
-    // deleteChat,
     getChatFromStoreID,
     saveMessage,
     addMesssageToChat
