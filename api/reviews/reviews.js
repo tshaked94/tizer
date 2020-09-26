@@ -9,6 +9,8 @@ router.post('/', async (request, response) => {
     addReview(review)
         .then((res) => {
             response.send(res);
+        }).catch((err) => {
+            response.status(400).send(err.message);
         });
 });
 
@@ -21,7 +23,9 @@ router.get('/:storeid', async (request, response) => { // get specific store rev
     getStoreReviews(storeid)
         .then((res) => {
             response.send(res);
-        })
+        }).catch((err) => {
+            response.status(400).send(err.message);
+        });
 });
 
 module.exports = router;

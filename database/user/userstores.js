@@ -30,16 +30,6 @@ const addStoreToUserStore = async (userID, storeIDToPush) => {
         });
 }
 
-
-// const findUserStoreObj = async (filter) => {
-//     return userStoreModel.find(filter)
-//         .exec()
-//         .catch(() => {
-//             throw new Error(errMsg('finding', 'rlUserStore'));
-//         });
-
-// }
-
 module.exports = {
     getUserStores,
     addStoreToUserStore,
