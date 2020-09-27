@@ -11,11 +11,11 @@ const findStore = async (filter) => {
     Object.assign(filterObj, filter);
     Object.keys(filterObj).forEach(key =>
         filterObj[key] === undefined && delete filterObj[key]);
-    
+
     const foundStore = await storeModel.find(filterObj)
         .populate('deals').exec()
         .catch((err) => {
-            throw new Error(errMsg('finding', 'Store') + err.message);
+            console.log(errMsg('finding', 'Store') + err.message);
         });
 
     return foundStore;
@@ -37,7 +37,7 @@ const deleteStore = async (id) => {
 
     console.log('storeID was deleted from rlUserStore Schema');
 
-    Deal.deleteMany({_store: id});
+    Deal.deleteMany({ _store: id });
 
     return 'store deleted successfully!';
 }

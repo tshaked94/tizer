@@ -35,7 +35,7 @@ const findUser = async (facebookID) => {
     return await User
         .findOne(facebookID)
         .catch((err) => {
-            throw new Error(errMsg('finding', 'user') + err.message);
+            console.log(errMsg('finding', 'user') + err.message);
         });
 }
 

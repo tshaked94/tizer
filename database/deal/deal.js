@@ -88,7 +88,7 @@ const findDeal = async (filter) => {
     return await dealsModel.find(filter)
         .exec()
         .catch((err) => {
-            throw new Error(errMsg('find', 'deals in array from store')
+            console.log(errMsg('find', 'deals in array from store')
                 + err.message);
         });
 }
