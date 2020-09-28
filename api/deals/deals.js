@@ -41,7 +41,7 @@ router.post('/:id', async (request, response) => {
         .then((res) => {
             response.send(res);
         }).catch((err) => {
-            console.log('in error func');
+            console.log(err.message);
             response.status(400).send(err.message);
         });
 });
