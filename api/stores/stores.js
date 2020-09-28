@@ -5,15 +5,12 @@ const { addStore, editStore, deleteStore, getStore, getDealsStore }
 // add store
 router.post('/', async (request, response) => {
     const store = request.body;
-    
-    console.log('in api/stores/');
-    console.log(store);
     addStore(store)
         .then(() => {
             console.log('in then property --> add store');
             response.send('store added successfully');
         }).catch((err) => {
-            console.log('in error func');
+            console.log(err.message);
             response.status(400).send(err.message);
         });
 });
